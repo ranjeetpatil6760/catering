@@ -240,7 +240,7 @@ $(document).ready(function(){
                 </thead>
                 <tbody>
                     <tr>
-                        <td>John Doe</td>
+                        <td>Admin</td>
                         <td>Administration</td>
                         <td>(171) 555-2222</td>
                         <td>
