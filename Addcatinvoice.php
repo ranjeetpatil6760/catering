@@ -1,10 +1,13 @@
+<?php
+include "db.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Catering Invoice</title>
+	<title>Catering Bill</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -39,7 +42,7 @@
 	
 		
 		
-		
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 </head>
 
 <body>
@@ -106,7 +109,6 @@
 								<input type="text" class="input-xlarge datepicker" id="date01" value="02/16/12">
 							  </div>
 							</div>
-
 							<div class="control-group">
 							  <label class="control-label" for="fileInput">File input</label>
 							  <div class="controls">
@@ -125,14 +127,13 @@
 							</div>
 						  </fieldset>
 						</form>   
-
 					</div>
 				</div>-->
 
 			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Make a Catering Bill</h2>
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Make Catering Bill</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
@@ -140,30 +141,30 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" action="" method="POST">
 							<fieldset>
 								 <div class="control-group">
 								<label class="control-label" for="focusedInput">Date:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="">
+								  <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date">
 								</div>
 							  </div>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Customer Name:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Customer Name">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Customer Name" name="name">
 								</div>
 							  </div>
 							   <div class="control-group">
 								<label class="control-label" for="focusedInput">Contact:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Mobile Number">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Mobile Number" name="contact">
 								</div>
 							  </div>
 							   <div class="control-group">
 								<label class="control-label" for="focusedInput">Address:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Address">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Address" name="address">
 								</div>
 							  </div>
 							  
@@ -172,100 +173,185 @@
 								<div class="controls">
 									<div id="itemRows">
 
+				
 								  <select id="selectError" data-rel="chosen" size="4" name="item_name">
-									<option>Chicken 65</option>
-									<option>Surmai fry</option>
-									<option>Kanda bhaji</option>
-									<option>Paneer Masala</option>
-									<option>Alu paratha</option>
-								  </select>
+								  	
+								
+<?php
+								  $q1= "SELECT * FROM dish_list";
+$result = mysqli_query($con,$q1);
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	?>
+	<option><?php echo $row['dish_name']?></option>
+<?php
+}
+?>
+	
+</select>
 							
 
 								
 
+Quantity: <input type="text" name="add_qty" size="4" />
 
-Quantity: <input type="text" name="add_qty" size="4" />Price: <input type="text" name="add_price" />Amount: <input type="text" name="add_total" /> <input onclick="addRow(this.form);" type="button" value="Add row" />
+Price: <input type="text" name="add_price" />
+
+ <input type="hidden" name="add_total" /> <br><input onclick="addRow(this.form);" type="button" class="btn btn-primary" value="+Add Item" name="Butn"/><br>
 </div>
+
+
 <script type="text/javascript">
+	document.cookie = "flag =0";
+	 
 var rowNum = 0;
+var sum=0;
+var rt=0;
 function addRow(frm) {
 rowNum ++;
-var row = '<p id="rowNum'+rowNum+'">Item: <input type="select" name="name[]" size="4" value="'+frm.item_name.value+'">Quantity: <input type="text" name="qty[]" size="4" value="'+frm.add_qty.value+'"> Price: <input type="text" name="price[]" value="'+frm.add_price.value+'">Amount: <input type="text" name="price[]" value="'+frm.add_total.value+'"> <input type="button" value="Remove" onclick="removeRow('+rowNum+');"></p>';
+var row = '<p id="rowNum'+rowNum+'">Item: <input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'">Quantity: <input type="text" name="dqty[]" size="4" value="'+frm.add_qty.value+'">Price: <input type="text" name="price[]" value="'+frm.add_price.value+'">Amount: <input type="text" name="Tprice[]" value="'+frm.add_price.value*frm.add_qty.value+'"><br> <input type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+','+frm.add_price.value*frm.add_qty.value+');"><br></p>';
+ sum+=frm.add_price.value*frm.add_qty.value;
 jQuery('#itemRows').append(row);
 frm.item_name.value = '';
 frm.add_qty.value = '';
 frm.add_price.value = '';
 frm.add_total.value = '';
+$('#stotal').val(sum);
+ 
 }
-function removeRow(rnum) {
+function removeRow(rnum,rt) {
 jQuery('#rowNum'+rnum).remove();
+var curnt_val=$('#stotal').val();
+curnt_val=curnt_val-rt;
+$('#stotal').val(curnt_val);
+curnt_val=0;
 }
+var orowNum = 0;
+var ort=0;
+function addoRow(frm) {
+orowNum ++;
+var orow = '<p id="orowNum'+orowNum+'">Item: <input type="text" name="oname[]" size="4" value="'+frm.add_oitem.value+'">Quantity: <input type="text" name="oqty[]" size="4" value="'+frm.add_oqty.value+'"> Price: <input type="text" name="oprice[]" value="'+frm.add_oprice.value+'">Amount: <input type="text" name="oTprice[]" value="'+frm.add_oprice.value*frm.add_oqty.value+'"> <input type="button" class="btn btn-danger" value="-Remove" onclick="removeORow('+orowNum+','+frm.add_price.value*frm.add_qty.value+');"><br></p>';
+ sum+=frm.add_oprice.value*frm.add_oqty.value;
+jQuery('#itemoRows').append(orow);
+frm.add_oitem.value = '';
+frm.add_oqty.value = '';
+frm.add_oprice.value = '';
+frm.add_ototal.value = '';
+$('#stotal').val(sum);
+ document.cookie = "flag =123";
+}
+function removeORow(rnum,ort) {
+jQuery('#orowNum'+rnum).remove();
+var ocurnt_val=$('#stotal').val();
+ocurnt_val=ocurnt_val-ort;
+$('#stotal').val(ocurnt_val);
+ocurnt_val=0;
+}
+$(document).ready(function(){
+    $('#dcnt').change(function(){
+    	var s=$('#stotal').val();
+    	var d=$('#dcnt').val();
+    	var a=s-((s*d)/100);
+        $('#total').val(a);
+    });
+});
+<?php 
+   $phpVar =  $_COOKIE['flag'];
+   
+   ?>
 </script>
-
 							  </div>
 							</div>
-
-							        <div class="control-group">
-								<label class="control-label" for="selectError1">Outsourced Items</label>
+                                <div class="control-group">
+								<label class="control-label" for="selectError">Outsourced Items:</label>
 								<div class="controls">
-									<div id="itemRows1">
-
-								  <select id="selectError1" data-rel="chosen" size="4" name="item_name1">
-									<option>Chicken 65</option>
-									<option>Surmai fry</option>
-									<option>Kanda bhaji</option>
-									<option>Paneer Masala</option>
-									<option>Alu paratha</option>
-								  </select>
-							
-
-								
-
-
-Quantity: <input type="text" name="add_qty1" size="4" />Price: <input type="text" name="add_price1" />Amount: <input type="text" name="add_total1" /> <input onclick="addRow1(this.form);" type="button" value="Add row" />
+									<div id="itemoRows">
+							Item: <input type="text" name="add_oitem" size="4" />
+							Quantity: <input type="text" name="add_oqty" size="4" />
+Price: <input type="text" name="add_oprice" /><br>
+<input type="hidden" name="add_ototal" /> <input onclick="addoRow(this.form);" type="button" class="btn btn-primary" value="+Add Item" name="oButn" /><br>
 </div>
 <script type="text/javascript">
-var rowNum = 0;
-function addRow1(frm1) {
-rowNum ++;
-var row1 = '<p id="rowNum'+rowNum+'">Item: <input type="select" name="name[]" size="4" value="'+frm1.item_name1.value+'">Quantity: <input type="text" name="qty[]" size="4" value="'+frm1.add_qty1.value+'"> Price: <input type="text" name="price[]" value="'+frm1.add_price1.value+'">Amount: <input type="text" name="price[]" value="'+frm1.add_total1.value+'"> <input type="button" value="Remove" onclick="removeRow('+rowNum+');"></p>';
-jQuery('#itemRows1').append(row1);
-frm1.item_name1.value = '';
-frm1.add_qty1.value = '';
-frm1.add_price1.value = '';
-frm1.add_total1.value = '';
-}
-function removeRow(rnum) {
-jQuery('#rowNum'+rnum).remove();
-}
 </script>
 
 							  </div>
 							</div>
+
+
+
 							   <div class="control-group">
 								<label class="control-label" for="focusedInput">Subtotal:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Rs.">
+								  <input class="input-xlarge focused" id="stotal" type="text" placeholder="Rs." name="subtotal">
 								</div>
 							  </div>
 							   <div class="control-group">
 								<label class="control-label" for="focusedInput">Discount:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="%">
+								  <input class="input-xlarge focused" id="dcnt" type="text" placeholder="%" name="discount">
 								</div>
 							  </div>
 							     <div class="control-group">
 								<label class="control-label" for="focusedInput">Total:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Rs.">
+								  <input class="input-xlarge focused" id="total" type="text" placeholder="Rs." name="total">
 								</div>
 							  </div>
-							  <div class="form-actions">
+							  <div class="form-actions" >
 								<button type="submit" class="btn btn-primary" name="save">Save changes</button>
 								<button class="btn">Cancel</button>
 							  </div>
 							</fieldset>
 						  </form>
+						  <?php
+include "db.php";
+//$id1 = mysql_query("SELECT MAX(h_id) FROM hotel_customer_info");
+//$id = "SELECT * FROM hotel_customer_info WHERE h_id = $id1 ";
+if(isset($_POST['save']))
+{
+$date=$_POST['date'];
+$name=$_POST['name'];
+$contact=$_POST['contact'];
+$address=$_POST['address'];
+$discount=$_POST['discount'];
+$total=$_POST['total'];
+//inserting in hotel_customer_info
+$qry="INSERT INTO cater_customer_info (date, cust_name, cust_add, cust_phone, discount, total) VALUES ('$date','$name','$address', '$contact', '$discount','$total')";
+if(mysqli_query($con,$qry))
+{
+	echo "<script> alert('Stored successfully')";
+	echo " </script>";
+}
+else
+	{
+	echo "<script> alert('Failed to store...Try Again!')";
+	echo " </script>";
+}
+//inserting in cat_dishes
+$id= "SELECT * FROM cater_customer_info WHERE c_id = (SELECT MAX(c_id) FROM cater_customer_info)";
+$result = mysqli_query($con,$id);
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$last_id = $row['c_id'];
+}
+foreach($_POST['dname'] as $cnt => $a) {
+$sql = "INSERT INTO cat_dishes (d_name, c_id, d_qty, d_price, total) VALUES ('$a', '$last_id', '".$_POST['dqty'][$cnt]."', '".$_POST['price'][$cnt]."', '".$_POST['Tprice'][$cnt]."');";
+mysqli_query($con,$sql);
+}
+if($phpVar=="123")
+{
+foreach($_POST['oname'] as $ocnt => $oa) {
+$osql = "INSERT INTO cat_dishes (outsource,d_name, c_id, d_qty, d_price, total) VALUES ('Yes','$oa', '$last_id', '".$_POST['oqty'][$ocnt]."', '".$_POST['oprice'][$ocnt]."', '".$_POST['oTprice'][$ocnt]."');";
+mysqli_query($con,$osql);
+}
+unset($_COOKIE['flag']);
+$phpVar=0;
+}
+}
+?>
+<script type="text/javascript">
+	$sum=0;
+</script>
 					
 					</div>
 		
@@ -291,7 +377,7 @@ jQuery('#rowNum'+rnum).remove();
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			<a href="#" class="btn btn-primary" name="save">Save changes</a>
 		</div>
 	</div>
 	
