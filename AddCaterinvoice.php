@@ -204,7 +204,11 @@ Price: <input type="text" name="add_price" />
 <br>Amount: <input type="text" name="add_total" /> <input onclick="addRow(this.form);" type="button" value="Add row" name="Butn"/><br>
 </div>
 
+
 <script type="text/javascript">
+	document.cookie = "flag =0";
+	 
+
 var rowNum = 0;
 var sum=0;
 function addRow(frm) {
@@ -218,11 +222,12 @@ frm.add_qty.value = '';
 frm.add_price.value = '';
 frm.add_total.value = '';
 $('#stotal').val(sum);
+ 
+
 }
 function removeRow(rnum) {
 jQuery('#rowNum'+rnum).remove();
 }
-
 
 
 
@@ -234,12 +239,15 @@ orowNum ++;
 var orow = '<p id="orowNum'+orowNum+'">Item: <input type="text" name="oname[]" size="4" value="'+frm.add_oitem.value+'">Quantity: <input type="text" name="oqty[]" size="4" value="'+frm.add_oqty.value+'"><br> Price: <input type="text" name="oprice[]" value="'+frm.add_oprice.value+'">Amount: <input type="text" name="oTprice[]" value="'+frm.add_oprice.value*frm.add_oqty.value+'"> <input type="button" value="Remove" onclick="removeORow('+orowNum+');"><br></p>';
  sum+=frm.add_oprice.value*frm.add_oqty.value;
 
+
 jQuery('#itemoRows').append(orow);
 frm.add_oitem.value = '';
 frm.add_oqty.value = '';
 frm.add_oprice.value = '';
 frm.add_ototal.value = '';
 $('#stotal').val(sum);
+ document.cookie = "flag =123";
+
 }
 function removeORow(rnum) {
 jQuery('#orowNum'+rnum).remove();
@@ -259,11 +267,17 @@ $(document).ready(function(){
 
 </script>
 
+
+<?php 
+   $phpVar =  $_COOKIE['flag'];
+
+   
+   ?>
 							  </div>
 							</div>
 
                                 <div class="control-group">
-								<label class="control-label" for="selectError">Outsourced Items</label>
+								<label class="control-label" for="selectError">Outsourced Items:</label>
 								<div class="controls">
 									<div id="itemoRows">
 							Item: <input type="text" name="add_oitem" size="4" />
@@ -353,23 +367,32 @@ $result = mysqli_query($con,$id);
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
 	$last_id = $row['c_id'];
+
 }
 
-echo $last_id;
 
 
 foreach($_POST['dname'] as $cnt => $a) {
 
 $sql = "INSERT INTO cat_dishes (d_name, c_id, d_qty, d_price, total) VALUES ('$a', '$last_id', '".$_POST['dqty'][$cnt]."', '".$_POST['price'][$cnt]."', '".$_POST['Tprice'][$cnt]."');";
 mysqli_query($con,$sql);
+
+
 }
 
-
+if($phpVar=="123")
+{
 foreach($_POST['oname'] as $ocnt => $oa) {
 
 $osql = "INSERT INTO cat_dishes (outsource,d_name, c_id, d_qty, d_price, total) VALUES ('Yes','$oa', '$last_id', '".$_POST['oqty'][$ocnt]."', '".$_POST['oprice'][$ocnt]."', '".$_POST['oTprice'][$ocnt]."');";
 mysqli_query($con,$osql);
 }
+
+unset($_COOKIE['flag']);
+$phpVar=0;
+}
+
+
 
 }
 ?>
