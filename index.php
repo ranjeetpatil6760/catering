@@ -76,7 +76,7 @@
 				</li>
 				<li><a href="#">Dashboard</a></li>
 			</ul>
-<h1><marquee>Welcome to Salvi Catering...</marquee></h1>
+<h1><marquee>Welcome to Salvi Catering</marquee></h1>
 			</div>
 		</div>
 	</div>
