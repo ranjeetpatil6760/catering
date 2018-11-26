@@ -136,7 +136,7 @@ include "db.php";
 			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Make a Hotel Bill</h2>
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Make Catering Bill</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
@@ -211,9 +211,14 @@ Price: <input type="text" name="add_price" />
 
 var rowNum = 0;
 var sum=0;
+var rt=0;
 function addRow(frm) {
 rowNum ++;
-var row = '<p id="rowNum'+rowNum+'">Item: <input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'">Quantity: <input type="text" name="dqty[]" size="4" value="'+frm.add_qty.value+'"><br> Price: <input type="text" name="price[]" value="'+frm.add_price.value+'">Amount: <input type="text" name="Tprice[]" value="'+frm.add_price.value*frm.add_qty.value+'"> <input type="button" value="Remove" onclick="removeRow('+rowNum+');"><br></p>';
+
+
+var row = '<p id="rowNum'+rowNum+'">Item: <input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'">Quantity: <input type="text" name="dqty[]" size="4" value="'+frm.add_qty.value+'"><br> Price: <input type="text" name="price[]" value="'+frm.add_price.value+'">Amount: <input type="text" name="Tprice[]" value="'+frm.add_price.value*frm.add_qty.value+'"> <input type="button" value="Remove" onclick="removeRow('+rowNum+','+frm.add_price.value*frm.add_qty.value+');"><br></p>';
+
+
  sum+=frm.add_price.value*frm.add_qty.value;
 
 jQuery('#itemRows').append(row);
@@ -225,18 +230,22 @@ $('#stotal').val(sum);
  
 
 }
-function removeRow(rnum) {
+function removeRow(rnum,rt) {
 jQuery('#rowNum'+rnum).remove();
+var curnt_val=$('#stotal').val();
+curnt_val=curnt_val-rt;
+$('#stotal').val(curnt_val);
+curnt_val=0;
 }
 
 
 
 
 var orowNum = 0;
-
+var ort=0;
 function addoRow(frm) {
 orowNum ++;
-var orow = '<p id="orowNum'+orowNum+'">Item: <input type="text" name="oname[]" size="4" value="'+frm.add_oitem.value+'">Quantity: <input type="text" name="oqty[]" size="4" value="'+frm.add_oqty.value+'"><br> Price: <input type="text" name="oprice[]" value="'+frm.add_oprice.value+'">Amount: <input type="text" name="oTprice[]" value="'+frm.add_oprice.value*frm.add_oqty.value+'"> <input type="button" value="Remove" onclick="removeORow('+orowNum+');"><br></p>';
+var orow = '<p id="orowNum'+orowNum+'">Item: <input type="text" name="oname[]" size="4" value="'+frm.add_oitem.value+'">Quantity: <input type="text" name="oqty[]" size="4" value="'+frm.add_oqty.value+'"><br> Price: <input type="text" name="oprice[]" value="'+frm.add_oprice.value+'">Amount: <input type="text" name="oTprice[]" value="'+frm.add_oprice.value*frm.add_oqty.value+'"> <input type="button" value="Remove" onclick="removeORow('+orowNum+','+frm.add_price.value*frm.add_qty.value+');"><br></p>';
  sum+=frm.add_oprice.value*frm.add_oqty.value;
 
 
@@ -249,8 +258,12 @@ $('#stotal').val(sum);
  document.cookie = "flag =123";
 
 }
-function removeORow(rnum) {
+function removeORow(rnum,ort) {
 jQuery('#orowNum'+rnum).remove();
+var ocurnt_val=$('#stotal').val();
+ocurnt_val=ocurnt_val-ort;
+$('#stotal').val(ocurnt_val);
+ocurnt_val=0;
 }
 
 
@@ -263,16 +276,16 @@ $(document).ready(function(){
     });
 });
 
-
-
-</script>
-
-
 <?php 
    $phpVar =  $_COOKIE['flag'];
 
    
    ?>
+
+</script>
+
+
+
 							  </div>
 							</div>
 
@@ -393,10 +406,11 @@ $phpVar=0;
 }
 
 
-
 }
 ?>
-
+<script type="text/javascript">
+	$sum=0;
+</script>
 					
 					</div>
 		
