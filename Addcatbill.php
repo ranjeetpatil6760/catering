@@ -4,7 +4,7 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Catering Bill</title>
+	<title>Catering Bills Details</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -223,54 +223,50 @@ $(document).ready(function(){
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div>
+                    <div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
                     <div class="col-sm-4">
                        <a href="Addcatinvoice.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered">
+
+<?php
+include "db.php";
+
+$result = mysqli_query($con,"SELECT * FROM cater_customer_info");
+
+           echo "<table class='table table-bordered'>
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Department</th>
+                        <th>Address</th>
                         <th>Phone</th>
-                        <th>Actions</th>
+                        <th>Total Amount</th>
+                        <th>Action</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>Administration</td>
-                        <td>(171) 555-2222</td>
-                        <td>
+                </thead>";
 
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="icon-pencil"></i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Peter Parker</td>
-                        <td>Customer Service</td>
-                        <td>(313) 555-5735</td>
-                        <td>
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="icon-pencil"></i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Fran Wilson</td>
-                        <td>Human Resources</td>
-                        <td>(503) 555-9931</td>
-                        <td>
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="icon-pencil"></i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>
-                        </td>
-                    </tr>      
-                </tbody>
+                while($row = mysqli_fetch_array($result))
+{
+echo "<tr>";
+echo "<td>" . $row['cust_name'] . "</td>"; 
+echo "<td>" . $row['cust_add'] . "</td>";
+echo "<td>" . $row['cust_phone'] . "</td>";
+echo "<td>" . $row['total'] . "</td>";
+echo "<td><a class='delete' title='Delete' data-toggle='tooltip'><i class='icon-trash'></i></a></td>";
+echo "</tr>";
+}
+?>
+
+
+
+<?php  echo "</table>";?>
+
+<!--<a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>-->
+
+
+
+                
             </table>
         </div>
     </div>     
