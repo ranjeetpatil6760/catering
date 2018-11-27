@@ -198,7 +198,7 @@ Quantity: <input type="text" name="add_qty" size="4" />
 Price: <input type="text" name="add_price" />
 
  <input type="hidden" name="add_total" /> <br><input onclick="addRow(this.form);" type="button" class="btn btn-primary" value="+Add Item" name="Butn"/><br>
-</div>
+<span><h3>Order details:</h3></span><hr</div>
 
 
 <script type="text/javascript">
@@ -270,7 +270,7 @@ $(document).ready(function(){
 							Quantity: <input type="text" name="add_oqty" size="4" />
 Price: <input type="text" name="add_oprice" /><br>
 <input type="hidden" name="add_ototal" /> <input onclick="addoRow(this.form);" type="button" class="btn btn-primary" value="+Add Item" name="oButn" /><br>
-</div>
+<span><h3>Order details:</h3></span><hr</div>
 <script type="text/javascript">
 </script>
 
