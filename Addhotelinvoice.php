@@ -4,7 +4,7 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>
+	<title>Hotel Bill Invoice</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -174,11 +174,20 @@
 									<div id="itemRows">
 
 								  <select id="selectError" data-rel="chosen" size="4" name="item_name">
-									<option>Chicken 65</option>
-									<option>Surmai fry</option>
-									<option>Kanda bhaji</option>
-									<option>Paneer Masala</option>
-									<option>Alu paratha</option>
+<?php
+
+include "db.php";
+								  $q1= "SELECT * FROM dish_list";
+$result = mysqli_query($con,$q1);
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	?>
+	<option><?php echo $row['dish_name']?></option>
+<?php
+}
+?>
+
+
 								  </select>
 							
 
@@ -252,7 +261,7 @@ $(document).ready(function(){
 						  </form>
 						  <?php
 
-include "db.php";
+
 
 //$id1 = mysql_query("SELECT MAX(h_id) FROM hotel_customer_info");
 
@@ -264,49 +273,18 @@ if(isset($_POST['save']))
 {
 
 $date=$_POST['date'];
-$name=$_POST['name'];
-$contact=$_POST['contact'];
-$address=$_POST['address'];
-$discount=$_POST['discount'];
+//$name=$_POST['name'];
+//$contact=$_POST['contact'];
+//$address=$_POST['address'];
+//$discount=$_POST['discount'];
 $total=$_POST['total'];
 
 //inserting in hotel_customer_info
-$qry="INSERT INTO hotel_customer_info (date, hcust_name, hcust_add, hcust_phone, discount, total) VALUES ('$date','$name','$address', '$contact', '$discount','$total')";
+$qry="INSERT INTO hotel_info (date, total) VALUES ('$date','$total')";
 mysqli_query($con,$qry);
 
-
-
-
-//inserting in h_dishes
-
-$id= "SELECT * FROM hotel_customer_info WHERE h_id = (SELECT MAX(h_id) FROM hotel_customer_info)";
-
-$result = mysqli_query($con,$id) or die (mysqli_error());
-while($row=mysqli_fetch_array($result))
-{
-	$last_id = $row['h_id'];
 }
 
-echo $last_id;
-
-
-
-foreach($_POST['dname'] as $cnt => $a) {
-
-$sql = "INSERT INTO h_dishes (d_name, h_id, d_qty, d_price, total) VALUES ('$a', '$last_id', '".$_POST['dqty'][$cnt]."', '".$_POST['price'][$cnt]."', '".$_POST['Tprice'][$cnt]."');";
-mysqli_query($con,$sql);
-}
-
-
-/*if(mysql_query($sql))
-{
-echo "Successfull";
-}
-else
-{
-echo "Error";
-}*/
-}
 
 
 
