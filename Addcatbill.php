@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -238,12 +239,11 @@ $(document).ready(function(){
 <div class="table-wrapper-scroll-y">
 <?php
 include "db.php";
-
 $result = mysqli_query($con,"SELECT * FROM cater_customer_info");
-
            echo "<table class='table table-bordered table-striped'>
                 <thead>
                     <tr>
+                     <th>Record No.</th>
                         <th>Name</th>
                         <th>Address</th>
                         <th>Phone</th>
@@ -251,15 +251,17 @@ $result = mysqli_query($con,"SELECT * FROM cater_customer_info");
                         <th>Action</th>
                     </tr>
                 </thead>";
-
                 while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
+echo "<td>" . $row['c_id'] . "</td>"; 
 echo "<td>" . $row['cust_name'] . "</td>"; 
 echo "<td>" . $row['cust_add'] . "</td>";
 echo "<td>" . $row['cust_phone'] . "</td>";
 echo "<td>" . $row['total'] . "</td>";
-echo "<td><a class='delete' title='Delete' data-toggle='tooltip'><i class='icon-trash'></i></a></td>";
+echo "<td>";
+?><a href="delete_cater_cust.php?id=<?php echo $row['c_id'] ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
+<?php
 echo "</tr>";
 }
 ?>
