@@ -162,6 +162,12 @@
 	table.table td .add {
 		display: none;
 	}
+	.table-wrapper-scroll-y {
+display: block;
+max-height: 300px;
+overflow-y: auto;
+-ms-overflow-style: -ms-autohiding-scrollbar;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -229,13 +235,13 @@ $(document).ready(function(){
                     </div>
                 </div>
             </div>
-
+<div class="table-wrapper-scroll-y">
 <?php
 include "db.php";
 
 $result = mysqli_query($con,"SELECT * FROM cater_customer_info");
 
-           echo "<table class='table table-bordered'>
+           echo "<table class='table table-bordered table-striped'>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -267,7 +273,8 @@ echo "</tr>";
 
 
                 
-            </table>
+            
+        </div>
         </div>
     </div>     
 
