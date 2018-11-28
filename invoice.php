@@ -75,7 +75,7 @@
 											<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 						  	<?php
-$con=mysqli_connect("localhost","root","","test");
+include 'db.php';
 mysqli_query($con,"SET character_set_results=utf8");  
 mb_language('uni');  
 mb_internal_encoding('UTF-8');  
