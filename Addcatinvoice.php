@@ -197,7 +197,7 @@ Quantity: <input type="text" name="add_qty" size="4" />
 
 Price: <input type="text" name="add_price" />
 
- <input type="hidden" name="add_total" /> <br><input onclick="addRow(this.form);" type="button" class="btn btn-primary" value="Add row" name="Butn"/><br>
+ <input type="hidden" name="add_total" /> <br><input onclick="addRow(this.form);" type="button" class="btn btn-primary" value="+Add Item" name="Butn"/><br>
 <span><h3>Order details:</h3></span><hr</div>
 
 
@@ -224,7 +224,9 @@ jQuery('#rowNum'+rnum).remove();
 var curnt_val=$('#stotal').val();
 curnt_val=curnt_val-rt;
 $('#stotal').val(curnt_val);
+sum=curnt_val;
 curnt_val=0;
+
 }
 var orowNum = 0;
 var ort=0;
@@ -245,8 +247,16 @@ jQuery('#orowNum'+rnum).remove();
 var ocurnt_val=$('#stotal').val();
 ocurnt_val=ocurnt_val-ort;
 $('#stotal').val(ocurnt_val);
+sum=ocurnt_val;
 ocurnt_val=0;
+
 }
+
+<?php 
+   $phpVar =  $_COOKIE['flag'];
+   
+   ?>
+
 $(document).ready(function(){
     $('#dcnt').change(function(){
     	var s=$('#stotal').val();
@@ -255,11 +265,9 @@ $(document).ready(function(){
         $('#total').val(a);
     });
 });
-<?php 
-   $phpVar =  $_COOKIE['flag'];
-   
-   ?>
+
 </script>
+
 							  </div>
 							</div>
                                 <div class="control-group">
