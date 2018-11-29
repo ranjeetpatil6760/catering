@@ -244,7 +244,9 @@ $result = mysqli_query($con,"SELECT * FROM cater_customer_info");
                 <thead>
                     <tr>
                      <th>Record No.</th>
+                     	<th>Date</th>
                         <th>Name</th>
+                        <th>Event</th>
                         <th>Address</th>
                         <th>Phone</th>
                         <th>Total Amount</th>
@@ -254,8 +256,10 @@ $result = mysqli_query($con,"SELECT * FROM cater_customer_info");
                 while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
-echo "<td>" . $row['c_id'] . "</td>"; 
-echo "<td>" . $row['cust_name'] . "</td>"; 
+echo "<td>" . $row['c_id'] . "</td>";
+echo "<td>" . $row['date'] . "</td>"; 
+echo "<td>" . $row['cust_name'] . "</td>";
+echo "<td>" . $row['event_name'] . "</td>"; 
 echo "<td>" . $row['cust_add'] . "</td>";
 echo "<td>" . $row['cust_phone'] . "</td>";
 echo "<td>" . $row['total'] . "</td>";
