@@ -149,6 +149,15 @@ include "db.php";
 								  <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date">
 								</div>
 							  </div>
+
+							  <div class="control-group">
+								<label class="control-label" for="focusedInput">Event Name:</label>
+								<div class="controls">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Event Name" name="event_name">
+								</div>
+							</div>
+
+
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Customer Name:</label>
 								<div class="controls">
@@ -246,16 +255,8 @@ function removeORow(rnum,ort) {
 jQuery('#orowNum'+rnum).remove();
 var ocurnt_val=$('#stotal').val();
 ocurnt_val=ocurnt_val-ort;
-$('#stotal').val(ocurnt_val);
-sum=ocurnt_val;
-ocurnt_val=0;
-
 }
 
-<?php 
-   $phpVar =  $_COOKIE['flag'];
-   
-   ?>
 
 $(document).ready(function(){
     $('#dcnt').change(function(){
@@ -268,6 +269,13 @@ $(document).ready(function(){
 
 </script>
 
+<?php 
+   $phpVar =  $_COOKIE['flag'];
+   
+   ?>
+
+
+			
 							  </div>
 							</div>
                                 <div class="control-group">
@@ -318,13 +326,14 @@ include "db.php";
 if(isset($_POST['save']))
 {
 $date=$_POST['date'];
+$event_name=$_POST['event_name'];
 $name=$_POST['name'];
 $contact=$_POST['contact'];
 $address=$_POST['address'];
 $discount=$_POST['discount'];
 $total=$_POST['total'];
 //inserting in hotel_customer_info
-$qry="INSERT INTO cater_customer_info (date, cust_name, cust_add, cust_phone, discount, total) VALUES ('$date','$name','$address', '$contact', '$discount','$total')";
+$qry="INSERT INTO cater_customer_info (date, event_name, cust_name, cust_add, cust_phone, discount, total) VALUES ('$date','$event_name', '$name','$address', '$contact', '$discount','$total')";
 if(mysqli_query($con,$qry))
 {
 	echo "<script> alert('Stored successfully')";
