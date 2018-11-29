@@ -36,9 +36,16 @@
 	<!-- start: Favicon -->
 	<link rel="shortcut icon" href="img/favicon.ico">
 	<!-- end: Favicon -->
-	
+	<style type="text/css">
+
+
+#chart-container {
+    width: 100%;
+    height: auto;
+}
+</style>
 		
-		
+	<script type="text/javascript" src="js/Chart.min.js"></script>	
 		
 </head>
 
@@ -76,7 +83,73 @@
 				</li>
 				<li><a href="#">Dashboard</a></li>
 			</ul>
+			<?php 
+
+			include("db.php");
+			$usrcnt = mysqli_query($con,"SELECT COUNT(*) as c_id FROM cater_customer_info");
+			$odrcnt = mysqli_query($con,"SELECT COUNT(*) as o_id FROM hotel_info");
+             $res = mysqli_fetch_array($usrcnt);
+            $cnt_mbrs = $res ['c_id'];
+             $res1 = mysqli_fetch_array($odrcnt);
+             $cnt_odrs = $res1['o_id'];
+
+             $dishcnt = mysqli_query($con,"SELECT COUNT(*) as d_id FROM dish_list");
+             $res2 = mysqli_fetch_array($dishcnt);
+            $cnt_dish = $res2 ['d_id'];
+			?>
+			<div class="row-fluid">	
+
+				<a class="quick-button metro yellow span2">
+					<i class="icon-group"></i>
+					<p>Catering Customers</p>
+					<span class="badge"><?php echo "$cnt_mbrs";?></span>
+				</a>
+				
+                <a class="quick-button metro blue span2">
+					<i class="icon-shopping-cart"></i>
+					<p>Hotel Orders</p>
+					<span class="badge"><?php echo "$cnt_odrs";?></span>
+				</a>
+				<a class="quick-button metro green span2">
+					<i class="icon-tags"></i>
+					<p>Dishes</p>
+					<span class="badge"><?php echo "$cnt_dish";?></span>
+				</a>
+				<a class="quick-button metro red span2">
+					<i class="icon-comments-alt"></i>
+					<p>Comments</p>
+					<span class="badge">46</span>
+				</a>
+				<a class="quick-button metro pink span2">
+					<i class="icon-envelope"></i>
+					<p>Messages</p>
+					<span class="badge">88</span>
+				</a>
+				<a href="#" class="quick-button metro black span2">
+					<i class="icon-calendar"></i>
+					<p>Calendar</p>
+				</a>
+				
+				<div class="clearfix"></div>
+								
+			</div>
 <h1><marquee>Welcome to Salvi Catering</marquee></h1>
+
+				<div class="box">
+					<div class="box-header">
+						<h2><i class="halflings-icon white list-alt"></i><span class="break"></span>Bar Graph of Orders</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						
+                     <?php include "graph.php";?>
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
