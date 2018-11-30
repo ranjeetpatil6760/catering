@@ -48,7 +48,7 @@ include "db.php";
 <body>
 		<!-- start: Header -->
 	<div>
-          <?php include 'header.html';?>
+          <?php include 'header.php';?>
 	
 	</div>
 	<!-- start: Header -->
