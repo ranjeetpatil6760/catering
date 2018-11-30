@@ -52,7 +52,7 @@
 <body>
 		<!-- start: Header -->
 	<div>
-          <?php include 'header.html';?>
+          <?php include 'header.php';?>
 	
 	</div>
 	<!-- start: Header -->
@@ -92,10 +92,18 @@
             $cnt_mbrs = $res ['c_id'];
              $res1 = mysqli_fetch_array($odrcnt);
              $cnt_odrs = $res1['o_id'];
-
+             // count no. of dishes
              $dishcnt = mysqli_query($con,"SELECT COUNT(*) as d_id FROM dish_list");
              $res2 = mysqli_fetch_array($dishcnt);
             $cnt_dish = $res2 ['d_id'];
+               // count no. of Items
+            $itemcnt = mysqli_query($con,"SELECT COUNT(*) as id FROM item_list");
+             $res3 = mysqli_fetch_array($itemcnt);
+            $cnt_item = $res3 ['id'];
+
+            $eventcnt = mysqli_query($con,"SELECT  c_id FROM cater_customer_info where event_name IS NOT NULL");
+             $res5 = mysqli_fetch_array($eventcnt);
+            $cnt_event = $res5 ['c_id'];
 			?>
 			<div class="row-fluid">	
 
@@ -116,18 +124,20 @@
 					<span class="badge"><?php echo "$cnt_dish";?></span>
 				</a>
 				<a class="quick-button metro red span2">
-					<i class="icon-comments-alt"></i>
-					<p>Comments</p>
-					<span class="badge">46</span>
+					<i class="icon-list"></i>
+					<p>List Items</p>
+					<span class="badge"><?php echo "$cnt_item";?></span>
 				</a>
 				<a class="quick-button metro pink span2">
-					<i class="icon-envelope"></i>
-					<p>Messages</p>
-					<span class="badge">88</span>
+					<i class="icon-gift"></i>
+					<p>Events</p>
+					<span class="badge"><?php echo "$cnt_event";?></span>
 				</a>
 				<a href="#" class="quick-button metro black span2">
 					<i class="icon-calendar"></i>
-					<p>Calendar</p>
+					<p><?php echo "". date("d-m-Y")."<br>";?></p>
+					<span class="badge"><?php echo " ". date("l");?></span>
+
 				</a>
 				
 				<div class="clearfix"></div>
@@ -137,7 +147,7 @@
 
 				<div class="box">
 					<div class="box-header">
-						<h2><i class="halflings-icon white list-alt"></i><span class="break"></span>Bar Graph of Orders</h2>
+						<h2><i class="icon-bar-chart"></i><span class="break"></span>Bar Graph of Orders</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
