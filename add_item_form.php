@@ -47,7 +47,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	<div>
-          <?php include 'header.html';?>
+          <?php include 'header.php';?>
 	
 	</div>
 	<!-- start: Header -->
