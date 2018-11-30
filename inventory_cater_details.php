@@ -47,7 +47,7 @@
 <body>
 	<!--header-->
 	<div>
-          <?php include 'header.html';?>
+          <?php include 'header.php';?>
 	<!-- start: Header -->
 	</div>
 	<!--sidebar start-->
