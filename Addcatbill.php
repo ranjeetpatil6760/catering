@@ -169,6 +169,39 @@ max-height: 300px;
 overflow-y: auto;
 -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -232,25 +265,55 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
                     <div class="col-sm-4">
+                    	<br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by mobile numbers" size="2">
                        <a href="Addcatinvoice.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
                     </div>
                 </div>
             </div>
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[5];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+
+
 <div class="table-wrapper-scroll-y">
 <?php
 include "db.php";
 $result = mysqli_query($con,"SELECT * FROM cater_customer_info");
-           echo "<table class='table table-bordered table-striped'>
+           //echo "<table class='table table-bordered table-striped'>
+				echo "<table id='myTable'>
                 <thead>
-                    <tr>
-                     <th>Record No.</th>
-                     	<th>Date</th>
-                        <th>Name</th>
-                        <th>Event</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                        <th>Total Amount</th>
-                        <th>Action</th>
+                <tr class='header'>
+                    
+                     <th style='width:10%;'>Record No.</th>
+                     	<th style='width:15%;'>Date</th>
+                        <th style='width:15%;'>Name</th>
+                        <th style='width:10%;'>Event</th>
+                        <th style='width:10%;'>Address</th>
+                        <th style='width:10%;'>Phone</th>
+                        <th style='width:10%;'>Total Amount</th>
+                        <th style='width:10%;'>Action</th>
                     </tr>
                 </thead>";
                 while($row = mysqli_fetch_array($result))
