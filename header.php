@@ -87,9 +87,37 @@
                                             ';
                                          }
                                           }
+                                          // End Alert Message
+                                          //Event List
+                                          $eventsql = "SELECT count(*) as c_id FROM cater_customer_info";
+                                 $eventqry = mysqli_query($con, $eventsql);
+                                 $row = mysqli_fetch_assoc($eventqry);
+                                 $cntevent = $row['c_id'];
+                                          $eventquery = "SELECT * FROM cater_customer_info  ORDER BY c_id DESC LIMIT 2"; 
+								$result1 = mysqli_query($con, $eventquery);
+								$output1 = '';
+								if(mysqli_num_rows($result1) > 0)
+                                 {
+ 
+                                 while($row = mysqli_fetch_array($result1))
+ 
+                                 {
+ 
+                                     $output1 .= '
+                                       <li>
+                                       <a href="#">
+                                  <strong>'.$row["event_name"].'</strong><br />
+                               
+                                      </a>
+                                     </li>
+ 
+                                            ';
+                                         }
+                                          }      
+
  
 								?>
-							<!-- End Alert Message -->
+							
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">
 					<ul class="nav pull-right">
@@ -108,6 +136,21 @@
 							</ul>
 						</li>
 						<!-- start: Notifications Dropdown -->
+						<li class="dropdown hidden-phone">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-calendar"></i>
+								<span class="badge red">
+								<?php echo "$cntevent" ; ?> </span>
+							</a>
+							<ul class="dropdown-menu tasks">
+								<li class="dropdown-menu-title">
+ 									<span><?php echo "New Event Added". $output1; ?></span>
+								
+								</li>
+								
+							</ul>
+						</li>
+						<!-- start: Notifications Dropdown 
 						<li class="dropdown hidden-phone">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="icon-calendar"></i>
@@ -171,12 +214,13 @@
 						</li>
 						<!-- end: Notifications Dropdown -->
 						<!-- start: Message Dropdown -->
-						<li class="dropdown hidden-phone">
+						<!--<li class="dropdown hidden-phone">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="icon-envelope"></i>
 								<span class="badge red">
 								4 </span>
 							</a>
+						-->
 							<ul class="dropdown-menu messages">
 								<li class="dropdown-menu-title">
  									<span>You have 9 messages</span>
@@ -213,7 +257,7 @@
                                             Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
                                         </span>  
                                     </a>
-                                </li>
+                                </li>  
                                 <li>
                                     <a href="#">
 										<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
