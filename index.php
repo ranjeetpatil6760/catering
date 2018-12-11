@@ -87,11 +87,11 @@
 
 			include("db.php");
 			$usrcnt = mysqli_query($con,"SELECT COUNT(*) as c_id FROM cater_customer_info");
-			$odrcnt = mysqli_query($con,"SELECT COUNT(*) as o_id FROM hotel_info");
+			//$odrcnt = mysqli_query($con,"SELECT COUNT(*) as o_id FROM hotel_info");
              $res = mysqli_fetch_array($usrcnt);
             $cnt_mbrs = $res ['c_id'];
-             $res1 = mysqli_fetch_array($odrcnt);
-             $cnt_odrs = $res1['o_id'];
+             //$res1 = mysqli_fetch_array($odrcnt);
+             //$cnt_odrs = $res1['o_id'];
              // count no. of dishes
              $dishcnt = mysqli_query($con,"SELECT COUNT(*) as d_id FROM dish_list");
              $res2 = mysqli_fetch_array($dishcnt);
@@ -105,25 +105,28 @@
              $res5 = mysqli_fetch_array($eventcnt);
             $cnt_event = $res5 ['c_id'];
 			?>
+			<b><h1><marquee>Welcome to Salvi Catering</marquee></h1></b>
+			<br>
+
 			<div class="row-fluid">	
 
-				<a class="quick-button metro yellow span2">
+				<a class="quick-button metro yellow span2" href="Addcatbill.php">
 					<i class="icon-group"></i>
 					<p>Catering Customers</p>
 					<span class="badge"><?php echo "$cnt_mbrs";?></span>
 				</a>
 				
-                <a class="quick-button metro blue span2">
+                <a class="quick-button metro blue span2" href="Addhotelinvoice.php">
 					<i class="icon-shopping-cart"></i>
-					<p>Hotel Orders</p>
-					<span class="badge"><?php echo "$cnt_odrs";?></span>
+					<p>Catering Orders</p>
+					<span class="badge"><?php echo "$cnt_mbrs";?></span>
 				</a>
-				<a class="quick-button metro green span2">
+				<a class="quick-button metro green span2" href="add_dish_form.php">
 					<i class="icon-tags"></i>
 					<p>Dishes</p>
 					<span class="badge"><?php echo "$cnt_dish";?></span>
 				</a>
-				<a class="quick-button metro red span2">
+				<a class="quick-button metro red span2" href="add_item_form.php">
 					<i class="icon-list"></i>
 					<p>List Items</p>
 					<span class="badge"><?php echo "$cnt_item";?></span>
@@ -143,8 +146,8 @@
 				<div class="clearfix"></div>
 								
 			</div>
-<h1><marquee>Welcome to Salvi Catering</marquee></h1>
 
+<br><br>
 				<div class="box">
 					<div class="box-header">
 						<h2><i class="icon-bar-chart"></i><span class="break"></span>Bar Graph of Orders</h2>
@@ -157,6 +160,7 @@
 					<div class="box-content">
 						
                      <?php include "graph.php";?>
+
 
 					</div>
 				</div>
