@@ -74,10 +74,10 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a> 
+					<a href="index.php">Home</a> 
 					<i class="icon-angle-right"></i>
 				</li>
-				<li><a href="#">Catering Bill</a></li>
+				<li><a href="#">Hotel Worker</a></li>
 			</ul>
 
 			<div class="row-fluid">
@@ -335,7 +335,7 @@ echo "<td>";
 										<i class="halflings-icon white trash"></i> 
 									</a></td>
 									
-									<td><a onclick="return confirm('Are you sure?')" href="#"><i class='fab fa-cc-amazon-pay' style='font-size:36px'></i></td>
+									<td><a onclick="return confirm('Are you sure?')" href="#"><i class='icon-money' style='font-size:36px'></i></a></td>
 <?php
 echo "</tr>";
 }
@@ -344,10 +344,13 @@ echo "</tr>";
 
 
 <?php  echo "</table>";?>
+</div>
+</div>
+</div>
 
 <!--<a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>-->
-
-
+</div>
+</div>
 
                 
             
@@ -356,7 +359,7 @@ echo "</tr>";
     </div>     
 
 				
-						
+					
        
 
 	</div><!--/.fluid-container-->
