@@ -326,7 +326,7 @@ echo "<td>" . $row['w_hid'] . "</td>";
 echo "<td>" . $row['w_name'] . "</td>"; 
 echo "<td>" . $row['w_add'] . "</td>";
 echo "<td>" . $row['w_mob'] . "</td>"; 
-echo "<td>" . $row['w_gender'] . "</td>";
+echo "<td>" . $row['w_gen'] . "</td>";
 
 echo "<td>";
 ?> <!--<a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a>  -->
