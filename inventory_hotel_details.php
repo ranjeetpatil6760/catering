@@ -78,13 +78,13 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a> 
+					<a href="index.php">Home</a> 
 					<i class="icon-angle-right"></i>
 				</li>
 				<li><a href="#">Hotel Bill</a></li>
 			</ul>
 
-			<div class="row-fluid">
+			
 				
 				<style type="text/css">
     body {
@@ -197,15 +197,14 @@ overflow-y: auto;
 
 #myTable {
   border-collapse: collapse;
-  width: 80%;
-  align-content: center;
+  width: 100%;
   border: 1px solid #ddd;
   font-size: 12px;
 }
 
 #myTable th, #myTable td {
   text-align: left;
-  padding: 8px;
+  padding: 12px;
 }
 
 #myTable tr {
@@ -292,7 +291,7 @@ $(document).ready(function(){
  
      To <input type='date' name='endDate' value='<?php if(isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
 
-     <button class="btn btn-sm btn-round"  name='but_search' style="background-color:green"><i class="halflings-icon white white ok"></i></button>
+     <button class="btn btn-xs btn-round btn-success"  name='but_search'><i class="halflings-icon white zoom-in"></i></button>
    </form>
   <!-- Filter form end -->
 
@@ -300,19 +299,22 @@ $(document).ready(function(){
                        <a href="add_inventory_hotel.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
                     </div>
                 </div>
-            </div>
 
+               
+               
+           
 <div class="table-wrapper-scroll-y">
+
 <?php
 include "db.php";
 
-echo "<table id='myTable' > 
+echo "<table id='myTable'>
                 <thead>
                     <tr class='header'>
                      	<th style='width:10%;'>Date</th>
                         <th style='width:10%;'>Item Name</th>
                         <th style='width:10%;'>Qty</th>
-                        
+                        <th style='width:10%;'>Unit</th>
                         <th style='width:10%;'>Price</th>
 
                     </tr>
@@ -347,7 +349,8 @@ echo "<table id='myTable' >
             echo "<tr>";
             echo "<td>". $id ."</td>";
             echo "<td>". $empName ."</td>";
-            echo "<td>". $date_of_join ." ". $gender ."</td>";
+            echo "<td>". $date_of_join ."</td>";
+            echo "<td>". $gender ."</td>";
             echo "<td>". $email ."</td>";
             echo "</tr>";
           }
@@ -359,9 +362,8 @@ echo "<table id='myTable' >
         ?>
 
 </table>
+
 </div>
-</div>
-</form>
 <!--<a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>-->
 
 
