@@ -80,7 +80,7 @@
 				</li>
 				<li>
 					<i class="icon-edit"></i>
-					<a href="#">Add Invoice</a>
+					<a href="#">Add Items</a>
 				</li>
 			</ul>
 			
@@ -138,7 +138,7 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Add item to list</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
+							
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
 						</div>
@@ -149,13 +149,7 @@
 								 <div class="control-group">
 								<label class="control-label" for="focusedInput">Date:</label>
 								<div class="controls">
-								<?PHP
-$date=date("Y-m-d");
-
-echo"<input type='date' class='input-xlarge focused' name='date'  id='datepicker' 
-value='$date' required >";?>
-
-
+								  <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date">
 								</div>
 							  </div>
 							  <!-- <div class="control-group">
@@ -204,14 +198,7 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 								
 
 Quantity: <input type="text" name="qty" size="2" />
-<br><br>
-<div class="control-group">
-								<label class="control-label" for="selectError">Unit
-								</label>
-								<div class="controls">
-									<div id="items">
-
-	<select id="sel" data-rel="chosen" name="unit">
+<select id="sel" data-rel="chosen" name="unit">
 	<option>kg</option>
 	<option>gm</option>
 	<option>mg</option>
