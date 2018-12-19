@@ -314,7 +314,7 @@ echo "<table id='myTable'>
                      	<th style='width:10%;'>Date</th>
                         <th style='width:10%;'>Item Name</th>
                         <th style='width:10%;'>Qty</th>
-                        <th style='width:10%;'>Unit</th>
+                      
                         <th style='width:10%;'>Price</th>
 
                     </tr>
@@ -349,8 +349,7 @@ echo "<table id='myTable'>
             echo "<tr>";
             echo "<td>". $id ."</td>";
             echo "<td>". $empName ."</td>";
-            echo "<td>". $date_of_join ."</td>";
-            echo "<td>". $gender ."</td>";
+            echo "<td>". $date_of_join ." ". $gender;
             echo "<td>". $email ."</td>";
             echo "</tr>";
           }
