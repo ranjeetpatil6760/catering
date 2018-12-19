@@ -90,8 +90,8 @@
 			//$odrcnt = mysqli_query($con,"SELECT COUNT(*) as o_id FROM hotel_info");
              $res = mysqli_fetch_array($usrcnt);
             $cnt_mbrs = $res ['c_id'];
-             //$res1 = mysqli_fetch_array($odrcnt);
-             //$cnt_odrs = $res1['o_id'];
+            // $res1 = mysqli_fetch_array($odrcnt);
+            // $cnt_odrs = $res1['o_id'];
              // count no. of dishes
              $dishcnt = mysqli_query($con,"SELECT COUNT(*) as d_id FROM dish_list");
              $res2 = mysqli_fetch_array($dishcnt);
@@ -101,11 +101,11 @@
              $res3 = mysqli_fetch_array($itemcnt);
             $cnt_item = $res3 ['id'];
 
-            $eventcnt = mysqli_query($con,"SELECT  c_id FROM cater_customer_info where event_name IS NOT NULL");
+            $eventcnt = mysqli_query($con,"SELECT  count(c_id) as cnt FROM cater_customer_info");
              $res5 = mysqli_fetch_array($eventcnt);
-            $cnt_event = $res5 ['c_id'];
+            $cnt_event = $res5 ['cnt'];
 			?>
-			<b><h1><marquee>Welcome to Salvi Catering</marquee></h1></b>
+			<h1><center><b>Welcome to Salvi Catering</b></center></h1>
 			<br>
 
 			<div class="row-fluid">	
@@ -116,7 +116,7 @@
 					<span class="badge"><?php echo "$cnt_mbrs";?></span>
 				</a>
 				
-                <a class="quick-button metro blue span2" href="Addhotelinvoice.php">
+                <a class="quick-button metro blue span2" href="Addcatbill.php">
 					<i class="icon-shopping-cart"></i>
 					<p>Catering Orders</p>
 					<span class="badge"><?php echo "$cnt_mbrs";?></span>
@@ -152,7 +152,7 @@
 					<div class="box-header">
 						<h2><i class="icon-bar-chart"></i><span class="break"></span>Bar Graph of Orders</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
+						
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
 						</div>
