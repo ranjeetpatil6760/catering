@@ -1,6 +1,6 @@
 <?php
 
-$con=mysqli_connect("localhost","root","","salavi");
+$con=mysqli_connect("localhost","root","123","salavi");
 mysqli_query($con,"SET character_set_results=utf8");
 mb_language('uni');
 mb_internal_encoding('UTF-8');

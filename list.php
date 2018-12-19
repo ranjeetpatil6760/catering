@@ -92,11 +92,13 @@
 						<table width="200" class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 						  	<?php
-$con=mysqli_connect("localhost","root","","test");
+/*$con=mysqli_connect("localhost","root","","test");
 mysqli_query($con,"SET character_set_results=utf8");  
 mb_language('uni');  
 mb_internal_encoding('UTF-8');  
+*/
 
+include 'db.php';
 mysqli_query($con,"set names 'utf8'"); 
 // Check connection
 if (mysqli_connect_errno())

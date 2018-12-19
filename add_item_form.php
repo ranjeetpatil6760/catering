@@ -172,10 +172,30 @@ if(isset($_POST['save']))
 
 $item=$_POST['item'];
 
+$res = mysqli_query($con, "select * from item_list where items=N'$item'");
+
+if (mysqli_num_rows($res) > 0) 
+{
+	echo "<script> alert('Item already exist')";
+	echo " </script>";
+  	  
+  	}
+else 
+  	{
+
 //inserting in hotel_customer_info
 $qry="INSERT INTO item_list (items) VALUES (N'$item')";
-mysqli_query($con,$qry);
-
+if(mysqli_query($con,$qry))
+{
+	echo "<script> alert('Stored successfully')";
+	echo " </script>";
+}
+else
+{
+	echo "<script> alert('Failed to store.Try Again!')";
+	echo " </script>";
+}
+}
 }
 ?>
 					

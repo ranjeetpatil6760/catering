@@ -149,7 +149,13 @@
 								 <div class="control-group">
 								<label class="control-label" for="focusedInput">Date:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date">
+								<?PHP
+$date=date("Y-m-d");
+
+echo"<input type='date' class='input-xlarge focused' name='date'  id='datepicker' 
+value='$date' required >";?>
+
+
 								</div>
 							  </div>
 							  <!-- <div class="control-group">
@@ -198,6 +204,21 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 								
 
 Quantity: <input type="text" name="qty" size="2" />
+<br><br>
+<div class="control-group">
+								<label class="control-label" for="selectError">Unit
+								</label>
+								<div class="controls">
+									<div id="items">
+
+	<select id="sel" data-rel="chosen" name="unit">
+	<option>kg</option>
+	<option>gm</option>
+	<option>mg</option>
+	<option>ltr</option>
+	<option>nag</option>
+	<option>dozen</option>
+</select>
 Price: <input type="text" name="price" size="2" />
 
 
@@ -213,15 +234,14 @@ var rowNum = 0;
 
 function addRow(frm) {
 rowNum ++;
-var row = '<hr><div><p id="rowNum'+rowNum+'">Item: <input type="text" name="iname[]" size="4" value="'+frm.i_name.value+'">Quantity: <input type="text" name="iqty[]" size="2" value="'+frm.qty.value+'">Price: <input type="text" name="iprice[]" size="2" value="'+frm.price.value+'"><br><br><input  type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+');"><br></p></div>';
+var row = '<hr><div><p id="rowNum'+rowNum+'">Item: <input type="text" name="iname[]" size="4" value="'+frm.i_name.value+'">Quantity: <input type="text" name="iqty[]" size="2" value="'+frm.qty.value+'">Unit: <input type="text" name="iunit[]" size="2" value="'+frm.unit.value+'">Price: <input type="text" name="iprice[]" size="2" value="'+frm.price.value+'"><br><br><input  type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+');"><br></p></div>';
  
 
 jQuery('#itemRows').append(row);
 frm.i_name.value = '';
 frm.qty.value = '';
 frm.price.value = '';
-
-//frm.add_price.value = '';
+frm.unit.value = '';
 //frm.add_total.value = '';
 //$('#stotal').val(sum);
 }
@@ -253,7 +273,7 @@ $date=$_POST['date'];
 
 
 foreach($_POST['iname'] as $cnt => $a) {
-$sql = "INSERT INTO inventory_stock_cater (date, item, qty, price) VALUES ('$date',N'$a', '".$_POST['iqty'][$cnt]."', '".$_POST['iprice'][$cnt]."');";
+$sql = "INSERT INTO inventory_stock_cater (date, item, qty, unit, price) VALUES ('$date',N'$a', '".$_POST['iqty'][$cnt]."','".$_POST['iunit'][$cnt]."', '".$_POST['iprice'][$cnt]."');";
 if(mysqli_query($con,$sql))
 {
 	echo "<script> alert('Stored successfully')";

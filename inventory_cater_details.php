@@ -72,7 +72,7 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a> 
+					<a href="index.php">Home</a> 
 					<i class="icon-angle-right"></i>
 				</li>
 				<li><a href="#">Catering Bill</a></li>
@@ -270,7 +270,7 @@ $(document).ready(function(){
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
+                    <div class="col-sm-8"><h2>Inventory  <b>Details</b></h2></div>
                     <div class="col-sm-4">
                     	<br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by date" size="2">
                        <a href="add_inventory_cater.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
@@ -306,7 +306,7 @@ function myFunction() {
 <div class="table-wrapper-scroll-y">
 <?php
 include "db.php";
-$result = mysqli_query($con,"SELECT * FROM inventory_stock_cater");
+$result = mysqli_query($con,"SELECT * FROM inventory_stock_cater order by(i_id) desc");
            //echo "<table id=1 class='table table-bordered table-striped'>
            echo "<table id='myTable'>
                 <thead>
@@ -314,7 +314,7 @@ $result = mysqli_query($con,"SELECT * FROM inventory_stock_cater");
                      	<th style='width:10%;'>Date</th>
                         <th style='width:10%;'>Item Name</th>
                         <th style='width:10%;'>Qty</th>
-
+						
                     </tr>
                 </thead>";
                 while($row = mysqli_fetch_array($result))
@@ -322,7 +322,7 @@ $result = mysqli_query($con,"SELECT * FROM inventory_stock_cater");
 echo "<tr>";
 echo "<td>" . $row['date'] . "</td>"; 
 echo "<td>" . $row['item'] . "</td>"; 
-echo "<td>" . $row['qty'] . "</td>";
+echo "<td>" . $row['qty'] . " ". $row['unit'] . "</td>";
 
 
 ?>

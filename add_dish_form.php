@@ -134,7 +134,7 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Add New Dish</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
+							
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
 						</div>
@@ -166,8 +166,28 @@ if(isset($_POST['save']))
 $dish=$_POST['dish'];
 
 //inserting in hotel_customer_info
+$res = mysqli_query($con, "select * from dish_list where dish_name='$dish'");
+
+if (mysqli_num_rows($res) > 0) 
+{
+	echo "<script> alert('Dish already exist')";
+	echo " </script>";
+  	  
+  	}
+else 
+  	{
 $qry="INSERT INTO dish_list (dish_name) VALUES ('$dish')";
-mysqli_query($con,$qry);
+if(mysqli_query($con,$qry))
+{
+	echo "<script> alert('Stored successfully')";
+	echo " </script>";
+}
+else
+{
+	echo "<script> alert('Failed to store.Try Again!')";
+	echo " </script>";
+}
+}
 
 }
 ?>

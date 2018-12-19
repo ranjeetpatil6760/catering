@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php	include "db.php";?>
+	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Hotel Bill Invoice</title>
+	<title>Add New Worker</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<!-- end: Meta -->
 	
 	<!-- start: Mobile Specific -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<!-- end: Mobile Specific -->
 	
 	<!-- start: CSS -->
@@ -45,9 +43,9 @@
 </head>
 
 <body>
-
-
 		<!-- start: Header -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 	<div>
           <?php include 'header.php';?>
 	
@@ -75,12 +73,12 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
 					<i class="icon-angle-right"></i> 
 				</li>
 				<li>
 					<i class="icon-edit"></i>
-					<a href="#">Add Invoice</a>
+					<a href="#">Add Worker</a>
 				</li>
 			</ul>
 			
@@ -130,13 +128,17 @@
 						  </fieldset>
 						</form>   
 
+
+
+
+
 					</div>
 				</div>-->
 
 			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Add item to list</h2>
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Add New Worker</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
@@ -146,154 +148,72 @@
 					<div class="box-content">
 						<form class="form-horizontal" action="" method="POST">
 							<fieldset>
+								<br>
 								 <div class="control-group">
-								<label class="control-label" for="focusedInput">Date:</label>
+								<label class="control-label" for="focusedInput">Name:</label>
 								<div class="controls">
-								 <?PHP
-$date=date("Y-m-d");
-
-echo"<input type='date' class='input-xlarge focused' name='date'  id='datepicker' 
-value='$date' required >";?>
-
-
-								</div>
-							  </div>
-							  <!-- <div class="control-group">
-								<label class="control-label" for="focusedInput">Customer Name:</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Customer Name" name="name">
-								</div>
-							  </div>
-							   <div class="control-group">
-								<label class="control-label" for="focusedInput">Contact:</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Mobile Number" name="contact">
-								</div>
-							  </div>
-							   <div class="control-group">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Name" name="name">
+								</div><br>
+								   <div class="control-group">
 								<label class="control-label" for="focusedInput">Address:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Address" name="address">
+								<input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Address" name="address">
+							</div><br>
+								<div class="control-group">
+								<label class="control-label" for="focusedInput">Mobile:</label>
+								<div class="controls">
+								<input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Mobile" name="mobile">
 								</div>
-							  </div> -->
-							  
+
+								<br>
 					
-						       	        <div class="control-group">
-								<label class="control-label" for="selectError">Add Items</label>
+
+								<div class="control-group">
+								<label class="control-label" for="selectError">Gender:</label>
 								<div class="controls">
 									<div id="itemRows">
 
-								  <select id="selectError" data-rel="chosen" size="1" name="i_name">
-<?php
-
-include "db.php";
-								  $q1= "SELECT * FROM item_list";
-$result = mysqli_query($con,$q1) or die (mysql_error());
-while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
-{
-	?>
-	<option><?php echo $row['items']?></option>
-<?php
-}
-?>
-
-
-								  </select>
-							
-
-								
-
-
-Quantity: <input type="text" name="qty" size="1" />
-<br><br>
-<div class="control-group">
-								<label class="control-label" for="selectError">Unit
-								</label>
-								<div class="controls">
-									<div id="items">
-
-	<select id="sel" data-rel="chosen" name="unit">
-	<option>kg</option>
-	<option>gm</option>
-	<option>mg</option>
-	<option>ltr</option>
-	<option>nag</option>
-	<option>dozen</option>
-</select>
-Price: <input type="text" name="price" size="1" />
-
-
-
-<input type="hidden" name="add_total"/> <input onclick="addRow(this.form);" class="btn btn-primary" type="button" value="Add Items" /><br><br>
-
-</div>
-</div>
-</div>
-
-<script type="text/javascript">
-var rowNum = 0;
-
-function addRow(frm) {
-rowNum ++;
-var row = '<hr><div><p id="rowNum'+rowNum+'">Item: <input type="text" name="iname[]" size="2" value="'+frm.i_name.value+'">Quantity: <input type="text" name="iqty[]" size="2" value="'+frm.qty.value+'">Unit: <input type="text" name="iunit[]" size="2" value="'+frm.unit.value+'">Price: <input type="text" name="iprice[]" size="2" value="'+frm.price.value+'"><br><br><input  type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+');"><br></p></div>';
- 
-
-jQuery('#itemRows').append(row);
-frm.i_name.value = '';
-frm.qty.value = '';
-frm.price.value = '';
-frm.unit.value='';
-//frm.add_price.value = '';
-//frm.add_total.value = '';
-//$('#stotal').val(sum);
-}
-function removeRow(rnum) {
-jQuery('#rowNum'+rnum).remove();
-}
-
-
-
-</script>
-
-							   
+								  <select id="selectError" data-rel="chosen" size="4" name="gen">
+								  	<option>Male</option>
+								  	<option>Female</option>
+							  </div>
+						</select>
+					</div>
+			
 							  <div class="form-actions" >
-								<button type="submit" class="btn btn-primary" name="save">Save changes</button>
+								<button type="submit" class="btn btn-primary" name="save">Save </button>
 								<button class="btn">Cancel</button>
 							  </div>
 							</fieldset>
 						  </form>
+						  
+
 						  <?php
-include "db.php";
-//$id1 = mysql_query("SELECT MAX(h_id) FROM hotel_customer_info");
-//$id = "SELECT * FROM hotel_customer_info WHERE h_id = $id1 ";
+
+						  include "db.php";
+
 if(isset($_POST['save']))
 {
-$date=$_POST['date'];
 
-
-//inserting in inventory_stock_hotel
-
-
-foreach($_POST['iname'] as $cnt => $a) {
-$sql = "INSERT INTO inventory_stock_hotel (date, item, qty, unit, price) VALUES ('$date',N'$a', '".$_POST['iqty'][$cnt]."','".$_POST['iunit'][$cnt]."', '".$_POST['iprice'][$cnt]."');";
-if(mysqli_query($con,$sql))
+$name=$_POST['name'];
+$add=$_POST['address'];
+$mob=$_POST['mobile'];
+//$age=$_POST['age'];
+$gen=$_POST['gen'];
+//inserting in hotel_customer_info
+$qry="INSERT INTO h_worker_info (w_name,w_add,w_mob,w_gen) VALUES ('$name','$add','$mob','$gen')";
+if(mysqli_query($con,$qry))
 {
 	echo "<script> alert('Stored successfully')";
 	echo " </script>";
 }
 else
-	{
-	echo "<script> alert('Failed to store...Try Again!')";
+{
+	echo "<script> alert('Failed to store.Try Again!')";
 	echo " </script>";
 }
-
-//mysqli_query($con,$sql);
 }
-
-}						  
-
 ?>
-
 					
 					</div>
 		

@@ -145,8 +145,13 @@
 								 <div class="control-group">
 								<label class="control-label" for="focusedInput">Date:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date">
-								</div>
+								  <?PHP
+$date=date("Y-m-d");
+
+echo"<input type='date' class='input-xlarge focused' name='date'  id='datepicker' 
+value='$date' required >";?>
+
+							</div>
 							  </div>
 							  <!-- <div class="control-group">
 								<label class="control-label" for="focusedInput">Customer Name:</label>
@@ -208,7 +213,7 @@ var rowNum = 0;
 var sum=0;
 function addRow(frm) {
 rowNum ++;
-var row = '<hr><div><p id="rowNum'+rowNum+'">Item: <input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'">Quantity: <input type="text" name="dqty[]" size="4" value="'+frm.add_qty.value+'"> Price: <input type="text" name="price[]" value="'+frm.add_price.value+'">Amount: <input type="text" name="Tprice[]" value="'+frm.add_price.value*frm.add_qty.value+'"><br><br><input  type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+');"><br></p></div>';
+var row = '<hr><div><p id="rowNum'+rowNum+'">Item: <input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'" readonly="true">Quantity: <input type="text" name="dqty[]" size="4" value="'+frm.add_qty.value+'" readonly="true"> Price: <input type="text" name="price[]" value="'+frm.add_price.value+'" readonly="true">Amount: <input type="text" name="Tprice[]" value="'+frm.add_price.value*frm.add_qty.value+'" readonly="true"><br><br><input  type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+');"><br></p></div>';
  sum+=frm.add_price.value*frm.add_qty.value;
 
 jQuery('#itemRows').append(row);

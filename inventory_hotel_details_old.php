@@ -9,6 +9,7 @@
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- end: Meta -->
 	
 	<!-- start: Mobile Specific -->
@@ -163,12 +164,19 @@
 	table.table td .add {
 		display: none;
 	}
+
 	.table-wrapper-scroll-y {
 display: block;
 max-height: 300px;
 overflow-y: auto;
 -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+
+
+/*{
+  box-sizing: border-box;
+}*/
 
 #myInput {
   background-image: url('/css/searchicon.png');
@@ -200,8 +208,7 @@ overflow-y: auto;
 #myTable tr.header, #myTable tr:hover {
   background-color: #f1f1f1;
 }
-
-
+	
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -263,10 +270,10 @@ $(document).ready(function(){
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
+                    <div class="col-sm-8"><h2>Inventory <b>Details</b></h2></div>
                     <div class="col-sm-4">
-                    	<br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by mobile numbers" size="2">
-                       <a href="Addcatinvoice.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
+                    	<br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by date" size="2">
+                       <a href="add_inventory_hotel.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
                     </div>
                 </div>
             </div>
@@ -282,7 +289,7 @@ function myFunction() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[5];
+    td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -295,39 +302,31 @@ function myFunction() {
 }
 </script>
 
-
-
+         
 <div class="table-wrapper-scroll-y">
 <?php
 include "db.php";
-$result = mysqli_query($con,"SELECT * FROM cater_customer_info order by(c_id) desc");
-           //echo "<table class='table table-bordered table-striped'>
-				echo "<table id='myTable'>
+$result = mysqli_query($con,"SELECT * FROM inventory_stock_hotel");
+           //echo "<table id=1 class='table table-bordered table-striped'>
+           echo "<table id='myTable'>
                 <thead>
-                <tr class='header'>
-                    
-                     <th style='width:10%;'>Record No.</th>
-                     	<th style='width:15%;'>Date</th>
-                        <th style='width:15%;'>Name</th>
-                        <th style='width:10%;'>Event</th>
-                        <th style='width:10%;'>Address</th>
-                        <th style='width:10%;'>Phone</th>
-                        <th style='width:10%;'>Total Amount</th>
-                        <th style='width:10%;'>Action</th>
+                    <tr class='header'>
+                     	<th style='width:10%;'>Date</th>
+                        <th style='width:10%;'>Item Name</th>
+                        <th style='width:10%;'>Qty</th>
+                        <th style='width:10%;'>Unit</th>
+
                     </tr>
                 </thead>";
                 while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
-echo "<td>" . $row['c_id'] . "</td>";
 echo "<td>" . $row['date'] . "</td>"; 
-echo "<td>" . $row['cust_name'] . "</td>";
-echo "<td>" . $row['event_name'] . "</td>"; 
-echo "<td>" . $row['cust_add'] . "</td>";
-echo "<td>" . $row['cust_phone'] . "</td>";
-echo "<td>" . $row['total'] . "</td>";
-echo "<td>";
-?><a href="delete_cater_cust.php?id=<?php echo $row['c_id'] ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
+echo "<td>" . $row['item'] . "</td>"; 
+echo "<td>" . $row['qty'] . "</td>";
+echo "<td>" . $row['unit'] . "</td>";
+
+?>
 <?php
 echo "</tr>";
 }
@@ -336,7 +335,7 @@ echo "</tr>";
 
 
 <?php  echo "</table>";?>
-
+</div>
 <!--<a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>-->
 
 

@@ -5,10 +5,13 @@
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Catering Bills Details</title>
+	<title>Workers Details</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
 	<!-- end: Meta -->
 	
 	<!-- start: Mobile Specific -->
@@ -263,10 +266,10 @@ $(document).ready(function(){
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
+                    <div class="col-sm-8"><h2>Hotel Worker <b>Details</b></h2></div>
                     <div class="col-sm-4">
-                    	<br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by mobile numbers" size="2">
-                       <a href="Addcatinvoice.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
+                    	<br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by Name" size="2">
+                       <a href="add_h_worker.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New Worker</button></a>
                     </div>
                 </div>
             </div>
@@ -282,7 +285,7 @@ function myFunction() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[5];
+    td = tr[i].getElementsByTagName("td")[1];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -300,34 +303,39 @@ function myFunction() {
 <div class="table-wrapper-scroll-y">
 <?php
 include "db.php";
-$result = mysqli_query($con,"SELECT * FROM cater_customer_info order by(c_id) desc");
+$result = mysqli_query($con,"SELECT * FROM h_worker_info");
            //echo "<table class='table table-bordered table-striped'>
 				echo "<table id='myTable'>
                 <thead>
                 <tr class='header'>
                     
-                     <th style='width:10%;'>Record No.</th>
-                     	<th style='width:15%;'>Date</th>
+                     <th style='width:10%;'>Worker ID</th>
                         <th style='width:15%;'>Name</th>
-                        <th style='width:10%;'>Event</th>
                         <th style='width:10%;'>Address</th>
                         <th style='width:10%;'>Phone</th>
-                        <th style='width:10%;'>Total Amount</th>
-                        <th style='width:10%;'>Action</th>
+                       
+                        <th style='width:10%;'>Gender</th>
+                        <th style='width:10%;' colspan='3'; align='center';>Actions</th>
+
                     </tr>
                 </thead>";
                 while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
-echo "<td>" . $row['c_id'] . "</td>";
-echo "<td>" . $row['date'] . "</td>"; 
-echo "<td>" . $row['cust_name'] . "</td>";
-echo "<td>" . $row['event_name'] . "</td>"; 
-echo "<td>" . $row['cust_add'] . "</td>";
-echo "<td>" . $row['cust_phone'] . "</td>";
-echo "<td>" . $row['total'] . "</td>";
+echo "<td>" . $row['w_hid'] . "</td>";
+echo "<td>" . $row['w_name'] . "</td>"; 
+echo "<td>" . $row['w_add'] . "</td>";
+echo "<td>" . $row['w_mob'] . "</td>"; 
+echo "<td>" . $row['w_gender'] . "</td>";
+
 echo "<td>";
-?><a href="delete_cater_cust.php?id=<?php echo $row['c_id'] ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
+?> <!--<a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a>  -->
+<a class="btn btn-info" href="#"><i class="halflings-icon white edit"></i></a>
+</td><td><a class="btn btn-danger" onclick="return confirm('Are you sure?')" href="del_hworker_info.php?id=<?php echo $row['w_hid']?>">
+										<i class="halflings-icon white trash"></i> 
+									</a></td>
+									
+									<td><a onclick="return confirm('Are you sure?')" href="#"><i class='fab fa-cc-amazon-pay' style='font-size:36px'></i></td>
 <?php
 echo "</tr>";
 }

@@ -146,7 +146,14 @@ include "db.php";
 								 <div class="control-group">
 								<label class="control-label" for="focusedInput">Date:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date">
+								 <!-- <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date"> -->
+
+<?PHP
+$date=date("Y-m-d");
+
+echo"<input type='date' class='input-xlarge focused' name='date'  id='datepicker' 
+value='$date' required >";?>
+
 								</div>
 							  </div>
 
@@ -218,7 +225,7 @@ var sum=0;
 var rt=0;
 function addRow(frm) {
 rowNum ++;
-var row = '<p id="rowNum'+rowNum+'">Item: <input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'">Quantity: <input type="text" name="dqty[]" size="4" value="'+frm.add_qty.value+'">Price: <input type="text" name="price[]" value="'+frm.add_price.value+'">Amount: <input type="text" name="Tprice[]" value="'+frm.add_price.value*frm.add_qty.value+'"><br> <input type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+','+frm.add_price.value*frm.add_qty.value+');"><br></p>';
+var row = '<p id="rowNum'+rowNum+'"> Item: <input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'" readonly="true">Quantity: <input type="text" name="dqty[]" size="4" value="'+frm.add_qty.value+'" readonly="true">Price: <input type="text" name="price[]" value="'+frm.add_price.value+'" readonly="true">Amount: <input type="text" name="Tprice[]" value="'+frm.add_price.value*frm.add_qty.value+'" readonly="true"><br> <input type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+','+frm.add_price.value*frm.add_qty.value+');"><br></p>';
  sum+=frm.add_price.value*frm.add_qty.value;
 jQuery('#itemRows').append(row);
 frm.item_name.value = '';
@@ -241,7 +248,7 @@ var orowNum = 0;
 var ort=0;
 function addoRow(frm) {
 orowNum ++;
-var orow = '<p id="orowNum'+orowNum+'">Item: <input type="text" name="oname[]" size="4" value="'+frm.add_oitem.value+'">Quantity: <input type="text" name="oqty[]" size="4" value="'+frm.add_oqty.value+'"> Price: <input type="text" name="oprice[]" value="'+frm.add_oprice.value+'">Amount: <input type="text" name="oTprice[]" value="'+frm.add_oprice.value*frm.add_oqty.value+'"> <input type="button" class="btn btn-danger" value="-Remove" onclick="removeORow('+orowNum+','+frm.add_oprice.value*frm.add_oqty.value+');"><br></p>';
+var orow = '<p id="orowNum'+orowNum+'">Item: <input type="text" name="oname[]" size="4" value="'+frm.add_oitem.value+'" readonly="true">Quantity: <input type="text" name="oqty[]" size="4" value="'+frm.add_oqty.value+'" readonly="true"> Price: <input type="text" name="oprice[]" value="'+frm.add_oprice.value+'" readonly="true">Amount: <input type="text" name="oTprice[]" value="'+frm.add_oprice.value*frm.add_oqty.value+'" readonly="true"> <input type="button" class="btn btn-danger" value="-Remove" onclick="removeORow('+orowNum+','+frm.add_oprice.value*frm.add_oqty.value+');"><br></p>';
  sum+=frm.add_oprice.value*frm.add_oqty.value;
 jQuery('#itemoRows').append(orow);
 frm.add_oitem.value = '';

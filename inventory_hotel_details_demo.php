@@ -9,6 +9,7 @@
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- end: Meta -->
 	
 	<!-- start: Mobile Specific -->
@@ -21,6 +22,7 @@
 	<link id="base-style" href="css/style.css" rel="stylesheet">
 	<link id="base-style-responsive" href="css/style-responsive.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
+	 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<!-- end: CSS -->
 	
 
@@ -42,6 +44,11 @@
 		
 		
 </head>
+ <!-- CSS -->
+  
+
+   <!-- Script -->
+
 
 <body>
 	<!--header-->
@@ -163,12 +170,19 @@
 	table.table td .add {
 		display: none;
 	}
+
 	.table-wrapper-scroll-y {
 display: block;
 max-height: 300px;
 overflow-y: auto;
 -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+
+
+/*{
+  box-sizing: border-box;
+}*/
 
 #myInput {
   background-image: url('/css/searchicon.png');
@@ -200,9 +214,11 @@ overflow-y: auto;
 #myTable tr.header, #myTable tr:hover {
   background-color: #f1f1f1;
 }
-
-
+	
 </style>
+
+
+
 <script type="text/javascript">
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();
@@ -257,86 +273,94 @@ $(document).ready(function(){
     });
 });
 </script>
+
+ 
+
 </head>
 <body>
+	<form method="POST" action="">
     <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
-                    <div class="col-sm-4">
-                    	<br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by mobile numbers" size="2">
-                       <a href="Addcatinvoice.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
+                    <div class="col-sm-10"><h2>Inventory <b>Details</b></h2></div>
+
+    <br><br>
+    
+     From <input type='date' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo $_POST['fromDate']; ?>'>
+ 
+     To <input type='date' name='endDate' value='<?php if(isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
+
+     <button class="btn btn-large btn-round"  name='but_search' style="background-color:green"><i class="halflings-icon white white ok"></i></button>
+   </form>
+  <!-- Filter form end -->
+
+                  <br><br>
+                       <a href="add_inventory_hotel.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
                     </div>
                 </div>
             </div>
 
-<script>
-function myFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[5];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-</script>
-
-
-
-<div class="table-wrapper-scroll-y">
 <?php
 include "db.php";
-$result = mysqli_query($con,"SELECT * FROM cater_customer_info order by(c_id) desc");
-           //echo "<table class='table table-bordered table-striped'>
-				echo "<table id='myTable'>
+
+echo "<table id='myTable'>
                 <thead>
-                <tr class='header'>
-                    
-                     <th style='width:10%;'>Record No.</th>
-                     	<th style='width:15%;'>Date</th>
-                        <th style='width:15%;'>Name</th>
-                        <th style='width:10%;'>Event</th>
-                        <th style='width:10%;'>Address</th>
-                        <th style='width:10%;'>Phone</th>
-                        <th style='width:10%;'>Total Amount</th>
-                        <th style='width:10%;'>Action</th>
+                    <tr class='header'>
+                     	<th style='width:10%;'>Date</th>
+                        <th style='width:10%;'>Item Name</th>
+                        <th style='width:10%;'>Qty</th>
+                        <th style='width:10%;'>Unit</th>
+                        <th style='width:10%;'>Price</th>
+
                     </tr>
                 </thead>";
-                while($row = mysqli_fetch_array($result))
-{
-echo "<tr>";
-echo "<td>" . $row['c_id'] . "</td>";
-echo "<td>" . $row['date'] . "</td>"; 
-echo "<td>" . $row['cust_name'] . "</td>";
-echo "<td>" . $row['event_name'] . "</td>"; 
-echo "<td>" . $row['cust_add'] . "</td>";
-echo "<td>" . $row['cust_phone'] . "</td>";
-echo "<td>" . $row['total'] . "</td>";
-echo "<td>";
-?><a href="delete_cater_cust.php?id=<?php echo $row['c_id'] ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
-<?php
-echo "</tr>";
-}
-?>
 
+       $emp_query = "SELECT * FROM inventory_stock_hotel WHERE 1 ";
 
+       // Date filter
+       if(isset($_POST['but_search'])){
+          $fromDate = $_POST['fromDate'];
+          $endDate = $_POST['endDate'];
 
-<?php  echo "</table>";?>
+          if(!empty($fromDate) && !empty($endDate)){
+             $emp_query .= " and date 
+                          between '".$fromDate."' and '".$endDate."' ";
+          }
+        }
 
+        // Sort
+        $emp_query .= " ORDER BY date DESC";
+        $employeesRecords = mysqli_query($con,$emp_query);
+
+        // Check records found or not
+        if(mysqli_num_rows($employeesRecords) > 0){
+          while($empRecord = mysqli_fetch_assoc($employeesRecords)){
+            $id = $empRecord['date'];
+            $empName = $empRecord['item'];
+            $date_of_join = $empRecord['qty'];
+            $gender = $empRecord['unit'];
+            $email = $empRecord['price'];
+
+            echo "<tr>";
+            echo "<td>". $id ."</td>";
+            echo "<td>". $empName ."</td>";
+            echo "<td>". $date_of_join ."</td>";
+            echo "<td>". $gender ."</td>";
+            echo "<td>". $email ."</td>";
+            echo "</tr>";
+          }
+        }else{
+          echo "<tr>";
+          echo "<td colspan='4'>No record found.</td>";
+          echo "</tr>";
+        }
+        ?>
+
+</table>
+
+</div>
 <!--<a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>-->
 
 

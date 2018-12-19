@@ -250,11 +250,7 @@ $(document).ready(function(){
 		$(this).parents("tr").find(".add, .edit").toggle();
 		$(".add-new").attr("disabled", "disabled");
     });
-	// Delete row on delete button click
-	$(document).on("click", ".delete", function(){
-        $(this).parents("tr").remove();
-		$(".add-new").removeAttr("disabled");
-    });
+	
 });
 </script>
 </head>
@@ -266,7 +262,7 @@ $(document).ready(function(){
                     <div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
                     <div class="col-sm-4">
                     	<br><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by mobile numbers" size="2">
-                       <a href="Addcatinvoice.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add New</button></a>
+                       <a href="Addcatinvoice.php"> <button type="button" class="btn btn-info add-new"><i class="icon-plus"></i> Add Event</button></a>
                     </div>
                 </div>
             </div>
@@ -312,7 +308,7 @@ $result = mysqli_query($con,"SELECT * FROM cater_customer_info order by(c_id) de
                         <th style='width:10%;'>Event</th>
                         <th style='width:10%;'>Address</th>
                         <th style='width:10%;'>Phone</th>
-                        <th style='width:10%;'>Total Amount</th>
+                        <th style='width:10%;'>Status</th>
                         <th style='width:10%;'>Action</th>
                     </tr>
                 </thead>";
@@ -327,7 +323,7 @@ echo "<td>" . $row['cust_add'] . "</td>";
 echo "<td>" . $row['cust_phone'] . "</td>";
 echo "<td>" . $row['total'] . "</td>";
 echo "<td>";
-?><a href="delete_cater_cust.php?id=<?php echo $row['c_id'] ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
+?><button class="button" style="vertical-align:middle"><span>Print Menu</span></button></td>
 <?php
 echo "</tr>";
 }
