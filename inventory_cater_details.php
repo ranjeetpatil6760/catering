@@ -314,7 +314,7 @@ $result = mysqli_query($con,"SELECT * FROM inventory_stock_cater order by(i_id) 
                      	<th style='width:10%;'>Date</th>
                         <th style='width:10%;'>Item Name</th>
                         <th style='width:10%;'>Qty</th>
-						
+			   <th style='width:10%;'>Price</th>			
                     </tr>
                 </thead>";
                 while($row = mysqli_fetch_array($result))
@@ -323,7 +323,7 @@ echo "<tr>";
 echo "<td>" . $row['date'] . "</td>"; 
 echo "<td>" . $row['item'] . "</td>"; 
 echo "<td>" . $row['qty'] . " ". $row['unit'] . "</td>";
-
+echo "<td>" . $row['price'] . "</td>"; 
 
 ?>
 <?php
