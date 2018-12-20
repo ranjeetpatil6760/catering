@@ -24,7 +24,26 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
 	<!-- end: CSS -->
 	
-
+<style type="text/css">
+    form{
+        margin: 20px 0;
+    }
+    form input, button{
+        padding: 5px;
+    }
+    table{
+        width: 100%;
+        margin-bottom: 20px;
+		border-collapse: collapse;
+    }
+    table, th, td{
+        border: 1px solid #cdcdcd;
+    }
+    table th, table td{
+        padding: 10px;
+        text-align: left;
+    }
+</style>
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 	  	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -39,7 +58,31 @@
 	<link rel="shortcut icon" href="img/favicon.ico">
 	<!-- end: Favicon -->
 	
-		
+	<script src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".add-row").click(function(){
+        	var item = $("#item").val();
+
+            var quantity = $("#quantity").val();
+            var unit = $("#unit").val();
+            var price = $("#price").val();
+            var dues = $("#dues").val();
+
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + item + "</td><td>"+ quantity + "</td><td>" + unit + "</td><td>" + price + "</td><td>" + dues + "</td></tr>";
+            $("table tbody").append(markup);
+        });
+        
+        // Find and remove selected table rows
+        $(".delete-row").click(function(){
+            $("table tbody").find('input[name="record"]').each(function(){
+            	if($(this).is(":checked")){
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+    });    
+</script>
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 </head>
@@ -83,56 +126,10 @@
 					<a href="#">Add Items</a>
 				</li>
 			</ul>
+
 			
-	<!-- 		<div class="row-fluid sortable">
-				<div class="box span12">
-					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Form Elements</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
-						</div>
-					</div>
-					<div class="box-content">
-						<form class="form-horizontal">
-						  <fieldset>
-							<div class="control-group">
-							  <label class="control-label" for="typeahead">Auto complete </label>
-							  <div class="controls">
-								<input type="text" class="span6 typeahead" id="typeahead"  data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'>
-								<p class="help-block">Start typing to activate auto complete!</p>
-							  </div>
-							</div>
-							<div class="control-group">
-							  <label class="control-label" for="date01">Date input</label>
-							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" id="date01" value="02/16/12">
-							  </div>
-							</div>
-
-							<div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" id="fileInput" type="file">
-							  </div>
-							</div>          
-							<div class="control-group hidden-phone">
-							  <label class="control-label" for="textarea2">Textarea WYSIWYG</label>
-							  <div class="controls">
-								<textarea class="cleditor" id="textarea2" rows="3"></textarea>
-							  </div>
-							</div>
-							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn">Cancel</button>
-							</div>
-						  </fieldset>
-						</form>   
-
-					</div>
-				</div>-->
-
+	
+               
 			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
@@ -143,41 +140,17 @@
 							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
 						</div>
 					</div>
+					   <form>
+<fieldset>
+		
 					<div class="box-content">
-						<form class="form-horizontal" action="" method="POST">
-							<fieldset>
-								 <div class="control-group">
-								<label class="control-label" for="focusedInput">Date:</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date">
-								</div>
-							  </div>
-							  <!-- <div class="control-group">
-								<label class="control-label" for="focusedInput">Customer Name:</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Customer Name" name="name">
-								</div>
-							  </div>
-							   <div class="control-group">
-								<label class="control-label" for="focusedInput">Contact:</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Mobile Number" name="contact">
-								</div>
-							  </div>
-							   <div class="control-group">
-								<label class="control-label" for="focusedInput">Address:</label>
-								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Address" name="address">
-								</div>
-							  </div> -->
-							  
-					
-						       	        <div class="control-group">
-								<label class="control-label" for="selectError">Add Items</label>
-								<div class="controls">
-									<div id="itemRows">
 
-								  <select id="selectError" data-rel="chosen" size="1" name="i_name">
+
+
+
+ 
+    	<input type="Date" id="date" placeholder="Date"><br><br>
+    	<select id="item" data-rel="chosen" size="1" name="i_name">
 <?php
 
 include "db.php";
@@ -193,15 +166,8 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 
 
 								  </select>
-							
-
-								
-
-
-Quantity:<input type="text" name="qty" size="1" />
-
-
-<select id="sel" data-rel="chosen" name="unit">
+        <input type="text" id="quantity" placeholder="Quantity">
+        <select id="unit" data-rel="chosen" name="Unit">
 	<option>kg</option>
 	<option>gm</option>
 	<option>mg</option>
@@ -209,116 +175,61 @@ Quantity:<input type="text" name="qty" size="1" />
 	<option>nag</option>
 	<option>dozen</option>
 </select>
-Price:<input type="text" name="price" size="1" /><br>
-
-
-
-<input type="hidden" name="add_total"/> <input onclick="addRow(this.form);" class="btn btn-primary" type="button" value="Add Items" /><br><br>
-
-</div>
-</div>
-</div>
-
-<script type="text/javascript">
-var rowNum = 0;
-
-function addRow(frm) {
-rowNum ++;
-var row = '<hr><div><p id="rowNum'+rowNum+'">Item: <input type="text" name="iname[]" size="2" value="'+frm.i_name.value+'">Quantity: <input type="text" name="iqty[]" size="2" value="'+frm.qty.value+'">Unit: <input type="text" name="iunit[]" size="2" value="'+frm.unit.value+'">Price: <input type="text" name="iprice[]" size="2" value="'+frm.price.value+'"><br><br><input  type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+');"><br></p></div>';
- 
-
-jQuery('#itemRows').append(row);
-frm.i_name.value = '';
-frm.qty.value = '';
-frm.price.value = '';
-frm.unit.value='';
-//frm.add_price.value = '';
-//frm.add_total.value = '';
-//$('#stotal').val(sum);
-}
-function removeRow(rnum) {
-jQuery('#rowNum'+rnum).remove();
-}
-
-
-
-</script>
-
-							   
-							  <div class="form-actions" >
+        <input type="text" id="price" placeholder="Price">
+        <input id="dues" type="text" placeholder="Dues" >
+    	<input type="button" class="add-row btn btn-primary" value="Add Row">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Price</th>
+                <th>Dues</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+               
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="delete-row btn btn-primary">Delete Row</button>
+                          
+					
+					
+		<div class="form-actions" >
+			<form>
 								<button type="submit" class="btn btn-primary" name="save">Save changes</button>
 								<button class="btn">Cancel</button>
+									<!--/span--></fieldset>
+			</form>
+
+		</div>
 							  </div>
-							</fieldset>
-						  </form>
-						  <?php
-include "db.php";
-//$id1 = mysql_query("SELECT MAX(h_id) FROM hotel_customer_info");
-//$id = "SELECT * FROM hotel_customer_info WHERE h_id = $id1 ";
-if(isset($_POST['save']))
-{
-$date=$_POST['date'];
+						
 
-
-//inserting in inventory_stock_hotel
-
-
-foreach($_POST['iname'] as $cnt => $a) {
-$sql = "INSERT INTO inventory_stock_hotel (date, item, qty, unit, price) VALUES ('$date',N'$a', '".$_POST['iqty'][$cnt]."','".$_POST['iunit'][$cnt]."', '".$_POST['iprice'][$cnt]."');";
-if(mysqli_query($con,$sql))
-{
-	echo "<script> alert('Stored successfully')";
-	echo " </script>";
-}
-else
-	{
-	echo "<script> alert('Failed to store...Try Again!')";
-	echo " </script>";
-}
-
-//mysqli_query($con,$sql);
-}
-
-}						  
-
-?>
-
-					
-					</div>
+			
 		
-				</div><!--/span-->
 			
-			</div><!--/row-->
-			
-			
+</div>
 
-	</div><!--/.fluid-container-->
+	<!--/.fluid-container-->
 	
-			<!-- end: Content -->
+			</div><!-- end: Content -->
 		</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
 		
-	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Settings</h3>
-		</div>
-		<div class="modal-body">
-			<p>Here settings can be configured...</p>
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary" name="save">Save changes</a>
-		</div>
-	</div>
 	
 	<div class="clearfix"></div>
-	
+	<div>
 	 <?php include 'footer.html';?>
-	
+	</div>
 	<!-- start: JavaScript-->
 
-		<script src="js/jquery-1.9.1.min.js"></script>
+	</div>	<script src="js/jquery-1.9.1.min.js"></script>
 	<script src="js/jquery-migrate-1.0.0.min.js"></script>
 	
 		<script src="js/jquery-ui-1.10.0.custom.min.js"></script>
