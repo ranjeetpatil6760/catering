@@ -4,7 +4,7 @@
 <?php	include "db.php";?>
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Hotel Bill Invoice</title>
+	<title>Hotel Inventory</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -63,14 +63,15 @@
     $(document).ready(function(){
         $(".add-row").click(function(){
         	var item = $("#item").val();
-
+             
             var quantity = $("#quantity").val();
             var unit = $("#unit").val();
             var price = $("#price").val();
             var dues = $("#dues").val();
-
+           
             var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + item + "</td><td>"+ quantity + "</td><td>" + unit + "</td><td>" + price + "</td><td>" + dues + "</td></tr>";
             $("table tbody").append(markup);
+            
         });
         
         // Find and remove selected table rows
@@ -196,9 +197,9 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
             </tr>
         </tbody>
     </table>
-    <button type="button" class="delete-row btn btn-primary">Delete Row</button>
+    <button type="button" class="delete-row btn btn-primary">Delete Row</button><br><br>
                           
-					
+				 <input type="text" id="stotal" placeholder="Subtotal" >	 <input type="text" id="due" placeholder="Total Dues">	
 					
 		<div class="form-actions" >
 			<form>
