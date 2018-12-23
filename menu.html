@@ -52,7 +52,7 @@ p {
     <script >
         $(document).ready(function(){
             $("button").click(function(){
-              var number_of_rows = $('#rows').val();
+              var number_of_rows = 1;
               var number_of_cols = $('#cols').val();
            //   var table_body = '<table border="1">';
            var fnt=$('#f').val();
@@ -88,15 +88,16 @@ p {
     </script>
 </head>
 <body>
-<div style="margin-top: 10px; margin-left: 10px">
+<div style="margin-top: 10px; margin-left: 10px"><center>
   <textarea type="text" id="mytext"></textarea><br>
-    Number of Rows:<input type="text"  id="rows">
-    Number of Coloumn: <input type="text" id="cols">
+
+    Number of Copies: <input type="text" id="cols">
     Width: <input type="text" id="wd" value="%">
     Font: <input type="text" id="f" value="px">
-    <button>Create Table</button>
+    <button>Preview</button>
+    </center>
     <div id="tableDiv" style="margin-top: 20px">
-        Table will gentare here.
+      
     </div>
 </div>
 </body>
