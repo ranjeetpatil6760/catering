@@ -7,7 +7,7 @@ include "db.php";
 	
 	<!-- start: Meta -->
 	<meta charset="utf-8">
-	<title>Catering Bill</title>
+	<title>Event</title>
 	<meta name="description" content="Bootstrap Metro Dashboard">
 	<meta name="author" content="Dennis Ji">
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
@@ -74,12 +74,12 @@ include "db.php";
 			<ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
 					<i class="icon-angle-right"></i> 
 				</li>
 				<li>
 					<i class="icon-edit"></i>
-					<a href="#">Add Invoice</a>
+					<a href="#">Add Event</a>
 				</li>
 			</ul>
 			
@@ -133,7 +133,7 @@ include "db.php";
 			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Make Catering Bill</h2>
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Add Event</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
