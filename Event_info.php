@@ -358,7 +358,7 @@ $result = mysqli_query($con,"SELECT * FROM event_info order by(c_id) desc");
                         <th style='width:15%;'>People</th>
                         <th style='width:15%;'>Menu</th>
                         
-                        <th style='width:15%;' colspan='3'>Action</th>
+                        <th style='width:15%;' colspan='4'>Action</th>
                     </tr>
                 </thead>";
                 
@@ -387,14 +387,11 @@ echo "<td>";
 ?>
 
 
-<a href="menu.html"><i class="halflings-icon list-alt" title="Menu" data-toggle="tooltip"></i></a></td>
-<?php
-echo "<td>";
-?>
-<a href="Addcatinvoice.php"><i class=" halflings-icon print" title="Bill" data-toggle="tooltip"></i></a></td>
-<?php
-echo "<td>";
-?><a href="delete_event.php?id=<?php echo $id ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
+<a href="menu.html"><i class="halflings-icon list-alt" title="Menu" data-toggle="tooltip"></i></a><br>
+
+<a href="Addcatinvoice.php?id=<?php echo $id ?>"><i class=" halflings-icon print" title="Bill" data-toggle="tooltip"></i></a> <br>
+<a href="Edit_event.php?id=<?php echo $id ?>"><i class=" halflings-icon edit" title="Edit Event" data-toggle="tooltip"></i></a><br>
+<a href="delete_event.php?id=<?php echo $id ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
 <?php
 echo "</tr>";
 unset($dish); 
