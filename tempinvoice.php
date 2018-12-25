@@ -99,13 +99,26 @@
                                     <th>RATE</th>
                                     <th>AMOUNT</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Meal (60 people)</td>
-                                    <td>60</td>
-                                    <td>330</td>
-                                    <td>19,800</td>
+                                <?php
+                                $tot=0;
 
+include "db.php";
+                                      
+                                  $q1= "SELECT * FROM cat_dishes ORDER BY c_id DESC limit 2";
+$result = mysqli_query($con,$q1) or die (mysql_error());
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+    ?>
+                              
+                                <tr>
+                                    <td></td>
+                                    <td><?php echo $row['d_name'] ?></td>
+                                    <td><?php echo $row['d_qty']?></td>
+                                    <td><?php echo $row['d_price']?></td>
+                                    <td><?php echo $row['total']?></td>
+                                <?php 
+                                $sum_total = intval( $row['d_qty'] ) * intval( $row['d_price'] );
+                                $tot += $sum_total;}?>
                                 </tr>
 
                                 <tr>
@@ -115,7 +128,7 @@
                                     
 
                                     <td colspan="4"  style="text-align: right;"><b>Total:</td>
-                                    <td>19,800/-</td>
+                                    <td><?php echo $tot?></td>
                                 </tr>
                                 
                             </table>
