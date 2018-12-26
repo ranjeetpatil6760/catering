@@ -149,13 +149,13 @@ $result = mysqli_query($con,"SELECT * FROM event_info where c_id='$ids'");
 
   
 						        <div class="control-group">
-								<label class="control-label" for="selectError">Menu</label>
+								<label class="control-label" for="selectError">Menu:</label>
 								<div class="controls">
 
 		<?php		
 		}			
 $res = mysqli_query($con,"SELECT * FROM cat_orders where c_id='$ids'");
-echo "<table border='1' width:100%>";
+echo "<table border='1' cellpadding='10' cellspacing='10' width:100%>";
  while($row = mysqli_fetch_array($res))
 {
 	echo "<tr>";
@@ -163,7 +163,7 @@ echo "<table border='1' width:100%>";
 	echo "<td>".$row['d_name']."</td>";
 	echo "<td><a href='delmenu.php?id=";
 	echo $row['id']."&c=".$ids;
-	echo "'>Delete</td>";
+	echo "' onclick='return confirm('Are you sure?')'>Delete</a></td>";
 	echo "</tr>";
 
 }
@@ -174,7 +174,7 @@ echo "</table>";
 							
                                 
  <div class="control-group">
-								<label class="control-label" for="selectError">Add Items</label>
+								<label class="control-label" for="selectError">Add Items:</label>
 								<div class="controls">
 									<div id="itemRows">
 
@@ -211,7 +211,7 @@ var sum=0;
 var rt=0;
 function addRow(frm) {
 rowNum ++;
-var row = '<p id="rowNum'+rowNum+'"> Item: <input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'" readonly="true"> <input type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+');"><br></p>';
+var row = '<p id="rowNum'+rowNum+'"><input type="select" name="dname[]" size="4" value="'+frm.item_name.value+'" readonly="true"> <input type="button" class="btn btn-danger" value="-Remove" onclick="removeRow('+rowNum+');"><br></p>';
 
 jQuery('#itemRows').append(row);
 frm.item_name.value = '';
