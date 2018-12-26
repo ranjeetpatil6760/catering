@@ -19,7 +19,18 @@ $fields['cust_add'] =$row['cust_add'] ;
 $fields['cust_phone'] = $row['cust_phone'] ;
 $fields['qty'] = $row['qty'];
 
+$id=$row['c_id'];
+$res = mysqli_query($con,"SELECT d_name FROM cat_orders where c_id='$id'");
+$dish=array();
+ while($row = mysqli_fetch_array($res))
+{
+$dish[]=$row['d_name'];
+}
+$fields['menu']=implode(",",$dish);
+
+
  array_push($status["catering"], $fields);
+ $dish=null;
 }
 
   $status["success"] = 1;
