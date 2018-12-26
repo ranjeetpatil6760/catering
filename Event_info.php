@@ -357,6 +357,7 @@ $result = mysqli_query($con,"SELECT * FROM event_info order by(c_id) desc");
                         <th style='width:15%;'>Phone</th>
                         <th style='width:15%;'>People</th>
                         <th style='width:15%;'>Menu</th>
+                           <th style='width:15%;'>Status</th>
                         
                         <th style='width:15%;' colspan='4'>Action</th>
                     </tr>
@@ -382,15 +383,23 @@ $res = mysqli_query($con,"SELECT d_name FROM cat_orders where c_id='$id'");
 $dish[]=$row['d_name'];
 }
 echo "<td>" . implode(",",$dish). "</td>";
+
+$res = mysqli_query($con,"SELECT pay_status FROM cat_bill where c_id='$id'");
+ while($row = mysqli_fetch_array($res))
+{
+$pay=$row['pay_status'];
+}
+echo "<td><label style='background-color:yellow; font-size:10px'>" .$pay."</label></td>";
+$pay=null;
 echo "<td>";
 
 ?>
-
 
 <a href="menu.html"><i class="halflings-icon list-alt" title="Menu" data-toggle="tooltip"></i></a><br>
 
 <a href="Addcatinvoice.php?id=<?php echo $id ?>"><i class=" halflings-icon print" title="Bill" data-toggle="tooltip"></i></a> <br>
 <a href="Edit_event.php?id=<?php echo $id ?>"><i class=" halflings-icon edit" title="Edit Event" data-toggle="tooltip"></i></a><br>
+<a href="cat_dues.php?id=<?php echo $id ?>"><i class="icon-share" title="Dues" data-toggle="tooltip"></i></a><br>
 <a href="delete_event.php?id=<?php echo $id ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
 <?php
 echo "</tr>";
