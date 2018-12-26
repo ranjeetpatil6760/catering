@@ -320,7 +320,7 @@ echo "<table id='myTable'>
                     </tr>
                 </thead>";
 
-       $emp_query = "SELECT * FROM inventory_stock_hotel WHERE 1 ";
+       $query = "SELECT * FROM inventory_stock_hotel WHERE 1 ";
 
        // Date filter
        if(isset($_POST['but_search'])){
@@ -328,29 +328,29 @@ echo "<table id='myTable'>
           $endDate = $_POST['endDate'];
 
           if(!empty($fromDate) && !empty($endDate)){
-             $emp_query .= " and date 
+             $query .= " and date 
                           between '".$fromDate."' and '".$endDate."' ";
           }
         }
 
         // Sort
-        $emp_query .= " ORDER BY date DESC";
-        $employeesRecords = mysqli_query($con,$emp_query);
+        $query .= " ORDER BY date DESC";
+        $Records = mysqli_query($con,$query);
 
         // Check records found or not
-        if(mysqli_num_rows($employeesRecords) > 0){
-          while($empRecord = mysqli_fetch_assoc($employeesRecords)){
-            $id = $empRecord['date'];
-            $empName = $empRecord['item'];
-            $date_of_join = $empRecord['qty'];
-            $gender = $empRecord['unit'];
-            $email = $empRecord['price'];
+        if(mysqli_num_rows($Records) > 0){
+          while($Record = mysqli_fetch_assoc($Records)){
+            $id = $Record['date'];
+            $item = $Record['item'];
+            $qty = $Record['qty'];
+            $unit = $Record['unit'];
+            $price = $Record['price'];
 
             echo "<tr>";
             echo "<td>". $id ."</td>";
-            echo "<td>". $empName ."</td>";
-            echo "<td>". $date_of_join ." ". $gender;
-            echo "<td>". $email ."</td>";
+            echo "<td>". $item ."</td>";
+            echo "<td>". $qty ." ". $unit;
+            echo "<td>". $price ."</td>";
             echo "</tr>";
           }
         }else{
