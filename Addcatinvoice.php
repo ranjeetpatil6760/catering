@@ -74,7 +74,7 @@ include "db.php";
 			<ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
 					<i class="icon-angle-right"></i> 
 				</li>
 				<li>
@@ -130,6 +130,9 @@ include "db.php";
 					</div>
 				</div>-->
 
+
+
+
 			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
@@ -149,10 +152,18 @@ include "db.php";
 								 <!-- <input class="input-xlarge focused" id="focusedInput" type="date" placeholder="" name="date"> -->
 
 <?PHP
+
 $date=date("Y-m-d");
 
 echo"<input type='date' class='input-xlarge focused' name='date'  id='datepicker' 
-value='$date' required >";?>
+value='$date' required >";
+
+$ids=$_GET['id'];
+
+$result = mysqli_query($con,"SELECT * FROM event_info where c_id='$ids'");
+ while($row = mysqli_fetch_array($result))
+{
+?>
 
 								</div>
 							  </div>
@@ -160,7 +171,7 @@ value='$date' required >";?>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Event Name:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Event Name" name="event_name">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Event Name" name="event_name" value="<?php echo $row['event_name']?>" ena>
 								</div>
 							</div>
 
@@ -168,19 +179,27 @@ value='$date' required >";?>
 							  <div class="control-group">
 								<label class="control-label" for="focusedInput">Customer Name:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Customer Name" name="name">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Customer Name" name="name" value="<?php echo $row['cust_name']?>">
 								</div>
 							  </div>
 							   <div class="control-group">
 								<label class="control-label" for="focusedInput">Contact:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Mobile Number" name="contact">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Mobile Number" name="contact" value="<?php echo $row['cust_phone']?>">
 								</div>
+
 							  </div>
 							   <div class="control-group">
 								<label class="control-label" for="focusedInput">Address:</label>
 								<div class="controls">
-								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Address" name="address">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Address" name="address" value="<?php echo $row['cust_add'] ?>">
+								</div>
+							  </div>
+
+							   <div class="control-group">
+								<label class="control-label" for="focusedInput">Number of People:</label>
+								<div class="controls">
+								  <input class="input-xlarge focused" id="focusedInput" type="text" placeholder="Address" name="address" value="<?php echo $row['qty'] ?>">
 								</div>
 							  </div>
 							  
@@ -190,16 +209,17 @@ value='$date' required >";?>
 									<div id="itemRows">
 
 				
-								  <select id="selectError" data-rel="chosen" size="4" name="item_name">
+								  Items:<select id="selectError" data-rel="chosen" size="4" name="item_name">
 								  	
 								
 <?php
-								  $q1= "SELECT * FROM dish_list";
+}
+								  $q1= "SELECT * FROM cat_orders where c_id='$ids'";
 $result = mysqli_query($con,$q1);
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
 	?>
-	<option><?php echo $row['dish_name']?></option>
+	<option><?php echo $row['d_name']?></option>
 <?php
 }
 ?>
@@ -214,7 +234,7 @@ Quantity: <input type="text" name="add_qty" size="4" />
 Price: <input type="text" name="add_price" />
 
  <input type="hidden" name="add_total" /> <br><input onclick="addRow(this.form);" type="button" class="btn btn-primary" value="+Add Item" name="Butn"/><br>
-<span><h3>Order details:</h3></span><hr</div>
+<span><h3>Order details:</h3></span></div>
 
 
 <script type="text/javascript">
@@ -272,6 +292,12 @@ $(document).ready(function(){
     	var a=s-((s*d)/100);
         $('#total').val(a);
     });
+    $('#adv').change(function(){
+    	var t=$('#total').val();
+    	var a=$('#adv').val();
+    	var e=t-a;
+        $('#dues').val(e);
+    });
 });
 
 </script>
@@ -293,7 +319,7 @@ $(document).ready(function(){
 							Quantity: <input type="text" name="add_oqty" size="4" />
 Price: <input type="text" name="add_oprice" /><br>
 <input type="hidden" name="add_ototal" /> <input onclick="addoRow(this.form);" type="button" class="btn btn-primary" value="+Add Item" name="oButn" /><br>
-<span><h3>Order details:</h3></span><hr</div>
+<span><h3>Order details:</h3></span><hr></div>
 <script type="text/javascript">
 </script>
 
@@ -320,6 +346,32 @@ Price: <input type="text" name="add_oprice" /><br>
 								  <input class="input-xlarge focused" id="total" type="text" placeholder="Rs." name="total">
 								</div>
 							  </div>
+							   <div class="control-group">
+								<label class="control-label" for="focusedInput">Advance:</label>
+								<div class="controls">
+								  <input class="input-xlarge focused" id="adv" type="text" placeholder="Rs." name="advance">
+								</div>
+							  </div>
+							  	 <div class="control-group">
+								<label class="control-label" for="focusedInput">Dues:</label>
+								<div class="controls">
+								  <input class="input-xlarge focused" id="dues" type="text" placeholder="Rs." name="dues">
+								</div>
+							  </div>
+
+							  	 <div class="control-group">
+								<label class="control-label" for="focusedInput">Payment Status:</label>
+								<div class="controls">
+									
+								<select data-rel="chosen" size="4" name="pay_status">
+									<option>Full Payment</option>
+									<option>Advance Payment</option>
+									<option>No Payment</option>
+								  </select>
+							
+
+								</div>
+							  </div>	
 							  <div class="form-actions" >
 								<button type="submit" class="btn btn-primary" name="save">Save changes</button>
 								<button class="btn">Cancel</button>
@@ -333,14 +385,13 @@ include "db.php";
 if(isset($_POST['save']))
 {
 $date=$_POST['date'];
-$event_name=$_POST['event_name'];
-$name=$_POST['name'];
-$contact=$_POST['contact'];
-$address=$_POST['address'];
+$adv=$_POST['advance'];
+$dues=$_POST['dues'];
 $discount=$_POST['discount'];
 $total=$_POST['total'];
+$p_status=$_POST['pay_status'];
 //inserting in hotel_customer_info
-$qry="INSERT INTO cater_customer_info (date, event_name, cust_name, cust_add, cust_phone, discount, total) VALUES ('$date','$event_name', '$name','$address', '$contact', '$discount','$total')";
+$qry="INSERT INTO cat_bill (date, c_id, discount, total,advance,dues,pay_status) VALUES ('$date','$ids','$discount','$total','$adv','$dues','$p_status')";
 if(mysqli_query($con,$qry))
 {
 	echo "<script> alert('Stored successfully')";
@@ -352,20 +403,21 @@ else
 	echo " </script>";
 }
 //inserting in cat_dishes
+/*
 $id= "SELECT * FROM cater_customer_info WHERE c_id = (SELECT MAX(c_id) FROM cater_customer_info)";
 $result = mysqli_query($con,$id);
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
 	$last_id = $row['c_id'];
-}
+}*/
 foreach($_POST['dname'] as $cnt => $a) {
-$sql = "INSERT INTO cat_dishes (d_name, c_id, d_qty, d_price, total) VALUES ('$a', '$last_id', '".$_POST['dqty'][$cnt]."', '".$_POST['price'][$cnt]."', '".$_POST['Tprice'][$cnt]."');";
+$sql = "INSERT INTO cat_dishes (d_name, c_id, d_qty, d_price, total) VALUES ('$a', '$ids', '".$_POST['dqty'][$cnt]."', '".$_POST['price'][$cnt]."', '".$_POST['Tprice'][$cnt]."');";
 mysqli_query($con,$sql);
 }
 if($phpVar=="123")
 {
 foreach($_POST['oname'] as $ocnt => $oa) {
-$osql = "INSERT INTO cat_dishes (outsource,d_name, c_id, d_qty, d_price, total) VALUES ('Yes','$oa', '$last_id', '".$_POST['oqty'][$ocnt]."', '".$_POST['oprice'][$ocnt]."', '".$_POST['oTprice'][$ocnt]."');";
+$osql = "INSERT INTO cat_dishes (outsource,d_name, c_id, d_qty, d_price, total) VALUES ('Yes','$oa', '$ids', '".$_POST['oqty'][$ocnt]."', '".$_POST['oprice'][$ocnt]."', '".$_POST['oTprice'][$ocnt]."');";
 mysqli_query($con,$osql);
 }
 unset($_COOKIE['flag']);
