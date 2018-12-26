@@ -89,11 +89,11 @@
                                           }
                                           // End Alert Message
                                           //Event List
-                                          $eventsql = "SELECT count(*) as c_id FROM cater_customer_info";
+                                          $eventsql = "SELECT count(*) as c_id FROM event_info";
                                  $eventqry = mysqli_query($con, $eventsql);
                                  $row = mysqli_fetch_assoc($eventqry);
                                  $cntevent = $row['c_id'];
-                                          $eventquery = "SELECT * FROM cater_customer_info  ORDER BY c_id DESC LIMIT 2"; 
+                                          $eventquery = "SELECT * FROM event_info  ORDER BY c_id DESC LIMIT 2"; 
 								$result1 = mysqli_query($con, $eventquery);
 								$output1 = '';
 								if(mysqli_num_rows($result1) > 0)
