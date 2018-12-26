@@ -383,9 +383,9 @@ $res = mysqli_query($con,"SELECT d_name FROM cat_orders where c_id='$id'");
 $dish[]=$row['d_name'];
 }
 echo "<td>" . implode(",",$dish). "</td>";
-
-$res = mysqli_query($con,"SELECT pay_status FROM cat_bill where c_id='$id'");
- while($row = mysqli_fetch_array($res))
+$pay=null;
+$res1 = mysqli_query($con,"SELECT pay_status FROM cat_bill where c_id='$id'");
+ while($row = mysqli_fetch_array($res1))
 {
 $pay=$row['pay_status'];
 }
@@ -396,10 +396,30 @@ echo "<td>";
 ?>
 
 <a href="menu.html"><i class="halflings-icon list-alt" title="Menu" data-toggle="tooltip"></i></a><br>
+<?php if(mysqli_num_rows($res1)>0)
+{ 
+	echo "<a onclick='return alertfun();'><i class='halflings-icon print' title='Bill' data-toggle='tooltip'></i></a> <br>";
+	
+}
+else
+{
 
-<a href="Addcatinvoice.php?id=<?php echo $id ?>"><i class=" halflings-icon print" title="Bill" data-toggle="tooltip"></i></a> <br>
+echo "<a href='Addcatinvoice.php?id=$id'><i class='halflings-icon print' title='Bill' data-toggle='tooltip'></i></a> <br>";
+}
+
+?>
 <a href="Edit_event.php?id=<?php echo $id ?>"><i class=" halflings-icon edit" title="Edit Event" data-toggle="tooltip"></i></a><br>
-<a href="cat_dues.php?id=<?php echo $id ?>"><i class="icon-share" title="Dues" data-toggle="tooltip"></i></a><br>
+
+<?php if(mysqli_num_rows($res1)>0)
+{ 
+echo "<a href='cat_dues.php?id=$id'><i class='icon-share' title='Dues' data-toggle='tooltip'></i></a><br>";
+}
+else
+{
+echo "<a onclick='return alertfun2();'><i class='icon-share' title='Dues' data-toggle='tooltip'></i></a><br>";
+
+}
+?>
 <a href="delete_event.php?id=<?php echo $id ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='icon-trash'>  </i></a></td>
 <?php
 echo "</tr>";
@@ -412,7 +432,14 @@ unset($dish);
 <?php  echo "</table>";?>
 
 <!--<a class="delete" title="Delete" data-toggle="tooltip"><i class="icon-trash"></i></a>-->
-
+<script type="text/javascript">
+    function alertfun() {
+    	alert('Bill has been already created!');
+    }
+       function alertfun2() {
+    	alert('Bill not created yet!');
+    }
+</script>
 
 
                 
