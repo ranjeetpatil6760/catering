@@ -192,16 +192,7 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 }
 foreach($_POST['dqty'] as $cnt => $a) {
 $sql = "INSERT INTO inventory_stock_hotel (t_id, item, qty, unit, price) VALUES ('$last_id','".$_POST['dn'][$cnt]."','$a', '".$_POST['unit'][$cnt]."', '".$_POST['price'][$cnt]."');";
-if(mysqli_query($con,$sql))
-  {
-  echo "<script> alert('Done')";
-  echo " </script>";
-}
-else
-  {
-  echo "<script> alert('Failed')";
-  echo " </script>";
-}
+mysqli_query($con,$sql);
 
 }
 
