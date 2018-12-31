@@ -103,8 +103,11 @@
                                 $tot=0;
 
 include "db.php";
-                                      
-                                  $q1= "SELECT * FROM cat_dishes ORDER BY c_id DESC limit 2";
+                                     
+                                     $ids=$_GET['id'];
+
+
+                                  $q1= "SELECT * FROM cat_orders where id='$ids'";
 $result = mysqli_query($con,$q1) or die (mysql_error());
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
@@ -112,13 +115,12 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
                               
                                 <tr>
                                     <td></td>
-                                    <td><?php echo $row['d_name'] ?></td>
-                                    <td><?php echo $row['d_qty']?></td>
-                                    <td><?php echo $row['d_price']?></td>
-                                    <td><?php echo $row['total']?></td>
-                                <?php 
-                                $sum_total = intval( $row['d_qty'] ) * intval( $row['d_price'] );
-                                $tot += $sum_total;}?>
+                                    <td><?php echo $row['d_name'] ;} ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                            
+                               
                                 </tr>
 
                                 <tr>
@@ -128,12 +130,62 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
                                     
 
                                     <td colspan="4"  style="text-align: right;"><b>Total:</td>
-                                    <td><?php echo $tot?></td>
+                                    <td></td>
                                 </tr>
                                 
                             </table>
                         </div>
-                        <p>RUPEES IN WORDS : <u>Nineteen Thousand Eight Hundred only </u></p>
+                        
+ <?php
+  /**
+   * Created by PhpStorm.
+   * User: sakthikarthi
+   * Date: 9/22/14
+   * Time: 11:26 AM
+   * Converting Currency Numbers to words currency format
+   */
+
+   $no = round($tot);
+   $point = round($tot - $no, 2) * 100;
+   $hundred = null;
+   $digits_1 = strlen($no);
+   $i = 0;
+   $str = array();
+   $words = array('0' => '', '1' => 'one', '2' => 'two',
+    '3' => 'three', '4' => 'four', '5' => 'five', '6' => 'six',
+    '7' => 'seven', '8' => 'eight', '9' => 'nine',
+    '10' => 'ten', '11' => 'eleven', '12' => 'twelve',
+    '13' => 'thirteen', '14' => 'fourteen',
+    '15' => 'fifteen', '16' => 'sixteen', '17' => 'seventeen',
+    '18' => 'eighteen', '19' =>'nineteen', '20' => 'twenty',
+    '30' => 'thirty', '40' => 'forty', '50' => 'fifty',
+    '60' => 'sixty', '70' => 'seventy',
+    '80' => 'eighty', '90' => 'ninety');
+   $digits = array('', 'hundred', 'thousand', 'lakh', 'crore');
+   while ($i < $digits_1) {
+     $divider = ($i == 2) ? 10 : 100;
+     $number = floor($no % $divider);
+     $no = floor($no / $divider);
+     $i += ($divider == 10) ? 1 : 2;
+     if ($number) {
+        $plural = (($counter = count($str)) && $number > 9) ? 's' : null;
+        $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
+        $str [] = ($number < 21) ? $words[$number] .
+            " " . $digits[$counter] . $plural . " " . $hundred
+            :
+            $words[floor($number / 10) * 10]
+            . " " . $words[$number % 10] . " "
+            . $digits[$counter] . $plural . " " . $hundred;
+     } else $str[] = null;
+  }
+  $str = array_reverse($str);
+  $result = implode('', $str);
+  $points = ($point) ?
+    "." . $words[$point / 10] . " " . 
+          $words[$point = $point % 10] : '';
+ 
+ ?> 
+                        <p>RUPEES IN WORDS : <u><?php  echo $result . "Rupees  "   ?></u></p>
                         <div class="tc-box">
                             <p> Note:</p>
                             <p>A bill amount is the minimum amount for the order placed by you.</p>
