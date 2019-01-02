@@ -104,10 +104,10 @@
 
 include "db.php";
                                      
-                                     $ids=$_GET['id'];
+                                   // $ids=$_GET['id'];
 
 
-                                  $q1= "SELECT * FROM cat_orders where id='$ids'";
+                                  $q1= "SELECT * FROM cat_dishes where c_id='10'";
 $result = mysqli_query($con,$q1) or die (mysql_error());
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
@@ -115,10 +115,10 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
                               
                                 <tr>
                                     <td></td>
-                                    <td><?php echo $row['d_name'] ;} ?></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php echo $row['d_name'] ;?></td>
+                                    <td><?php echo $row['d_qty'] ;?></td>
+                                    <td><?php echo $row['d_price'] ;?></td>
+                                    <td><?php echo $row['total'] ; $tot += $row['total'];} ?></td>
                             
                                
                                 </tr>
@@ -127,10 +127,15 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
                              
                                 </tr>
                                 <tr >
+                                
+                                    
+                                
                                     
 
                                     <td colspan="4"  style="text-align: right;"><b>Total:</td>
-                                    <td></td>
+                                    <td>
+                                        <?php echo $tot;?>
+                                    </td>
                                 </tr>
                                 
                             </table>
