@@ -214,8 +214,17 @@ echo "<a onclick='return alertfun2();'><i class='ti-back-right' title='Dues' dat
 
 }
 ?>
+<?php if(mysqli_num_rows($res1)>0)
+{ 
+echo "<a href='catering_invoice.php?id= $id '><i class='ti-printer' title='Invoice' data-toggle='tooltip'></i></a><br>";
+}
+else
+{
+echo "<a onclick='return alertfun2();'><i class='ti-printer' title='Invoice' data-toggle='tooltip'></i></a><br>";
 
- <a href="catering_invoice.php?id=<?php echo $id ?>"><i class=" ti-printer" title="Invoice" data-toggle="tooltip"></i></a><br>
+}
+?>
+
 <a href="w_new.php?id=<?php echo $id?>"><i class="ti-id-badge" title="Worker" data-toggle="tooltip"></i></a><br>
 
 <a href="delete_event.php?id=<?php echo $id ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure?')"><i class='ti-trash'>  </i></a>
